@@ -9,7 +9,7 @@
       <div class="card-header bg-primary">
         <div class="row align-items-center">
           <div class="col-6">
-            <h5 class="card-title fw-semibold text-white">Perangkat Kecamatan</h5>
+            <h5 class="card-title fw-semibold text-white">Struktur Organisasi</h5>
           </div>
           <div class="col-6 text-right">
             <a href="/perangkat-desa" type="button" class="btn btn-warning float-end me-2" target="_blank">Live Preview</a>
@@ -26,7 +26,7 @@
 
         <div class="row">
           <div class="button">
-            <a href="/admin/perangkat-desa/create" type="button" class="btn btn-success my-3">Tambah Perangkat Kecamatan</a>
+            <a href="/admin/perangkat-desa/create" type="button" class="btn btn-success my-3">Tambah Pegawai</a>
           </div>
 
           @foreach ($perangkatDesas as $perangkat)

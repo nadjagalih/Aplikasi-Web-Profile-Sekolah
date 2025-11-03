@@ -7,35 +7,62 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# Website Portal Desa Dinamis
+# Website Sistem Informasi Puskesmas
 
 
 
-Website portal desa Laravel adalah sebuah website yang dibangun menggunakan framework Laravel. Website ini dapat digunakan oleh pemerintah desa untuk mengelola berbagai informasi dan layanan kepada masyarakat.. Berikut adalah beberapa fitur dan komponen utama yang dapat ada dalam aplikasi POS berbasis web Laravel:
+Website Sistem Informasi Puskesmas adalah sebuah website yang dibangun menggunakan framework Laravel. Website ini dapat digunakan oleh puskesmas untuk mengelola berbagai informasi layanan kesehatan, kegiatan puskesmas, artikel kesehatan, dan layanan kepada masyarakat. Website ini dikembangkan sebagai pengganti website PKM Suruh (https://pkm-suruh.trenggalekkab.go.id/). Berikut adalah beberapa fitur dan komponen utama yang ada dalam aplikasi berbasis web Laravel ini:
 
 
+###
+composer install
+npm install
+npm run build
 
-# Fitur
-1. Menampilkan Beranda/Landing page
-2. Menampilkan Profil Desa 
-     - Wilayah
-    - Sejarah
-    - Visi-misi
-    - Perangkat desa
-    - Peta desa
-3. Menampilkan Umkm Desa
-4. Menampilkan Berita Desa
-5. Menampilkan Data Desa (Tabel & Grafik)
-    - Data Agama
-    - Data Pekerjaan
-    - Data Jenis kelamin
-6. Kontak
+# Fitur Utama
+1. **Beranda/Landing Page**
+   - Slider informasi
+   - Sambutan Kepala Puskesmas
+   - Berita & Kegiatan Terbaru
+   - Survei Kepuasan Masyarakat (SKM)
+   
+2. **Profil Puskesmas**
+   - Sambutan Kepala Puskesmas
+   - Sejarah Puskesmas
+   - Visi & Misi
+   - Struktur Organisasi
+   - Data Tenaga Medis (Dokter, Perawat, Bidan, dll)
+   - Poliklinik & Fasilitasi
+   - Lokasi & Peta Puskesmas
+   
+3. **Layanan Kesehatan**
+   - Informasi Layanan Kesehatan
+   - Jadwal Praktek Dokter
+   - Alur Pelayanan
+   - Persyaratan Layanan
+   
+4. **Berita & Informasi**
+   - Berita Kesehatan
+   - Kegiatan Puskesmas
+   - Pengumuman
+   - Artikel Kesehatan
+   - Gallery Kegiatan
+   
+5. **Data & Statistik**
+   - Survei Kepuasan Masyarakat (SKM)
+   - Data Kunjungan Pasien
+   - Grafik & Statistik Kesehatan
+   
+6. **Kontak & Pengaduan**
+   - Informasi Kontak
+   - Form Pengaduan Online
+   - Lokasi Maps
 
 
 
 ## Teknologi
 
-Aplikasi Point of Sale dibangun menggunakan beberapa Teknologi diantaranya :
+Aplikasi Sistem Informasi Puskesmas dibangun menggunakan beberapa Teknologi diantaranya :
 
 - Laravel - The PHP Framework for Web Artisans
 - JavaScript - JavaScript, often abbreviated as JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS.
@@ -49,10 +76,10 @@ Lakukan Clone Project/Unduh manual .
 
 Aktifkan Xampp Control Panel, lalu akses ke http://localhost/phpmyadmin/.
 
-Buat database dengan nama 'pos'.
+Buat database dengan nama 'DESA-LARAVEL' atau gunakan database yang sudah ada.
 
 Jika melakukan Clone Project, rename file .env.example dengan env dan hubungkan
-database nya dengan mengisikan nama database, 'DB_DATABASE=pos'.
+database nya dengan mengisikan nama database, 'DB_DATABASE=DESA-LARAVEL'.
 
 
 Kemudian, Ketik pada terminal :

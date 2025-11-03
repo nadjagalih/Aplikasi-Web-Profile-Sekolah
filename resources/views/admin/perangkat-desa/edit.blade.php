@@ -7,7 +7,7 @@
             <div class="card-header bg-primary">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <h5 class="card-title fw-semibold text-white">Edit Perangkat Kecamatan</h5>
+                        <h5 class="card-title fw-semibold text-white">Edit Pegawai</h5>
                     </div>
                     <div class="col-6 text-right">
                         <a href="/admin/perangkat-desa" type="button" class="btn btn-warning float-end">Kembali</a>

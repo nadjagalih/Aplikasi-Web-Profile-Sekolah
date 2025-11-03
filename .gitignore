@@ -1,1 +1,48 @@
-*.sqlite*
+# Dependencies
+/node_modules
+/vendor
+
+# Laravel specific
+/.idea
+/.vscode
+/.vagrant
+/public/hot
+/public/storage
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+!storage/app/.gitignore
+!storage/framework/.gitignore
+!storage/logs/.gitignore
+
+# Environment & Configuration
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+
+# Database files
+*.sqlite
+*.sqlite-journal
+*.sql
+
+# Documentation (ignore all .md except README.md)
+*.md
+!README.md
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+/public/js/*
+/public/css/*
+/public/mix-manifest.json

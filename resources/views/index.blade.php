@@ -99,6 +99,35 @@
     text-decoration: underline;
   }
 
+  /* Sambutan Kepala Puskesmas Styles */
+  #sambutan {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+
+  #sambutan .sambutan-content {
+    border-left: 4px solid #0d6efd;
+  }
+
+  #sambutan .sambutan-text {
+    font-size: 1rem;
+    color: #495057;
+  }
+
+  #sambutan img {
+    border: 5px solid white;
+    transition: transform 0.3s ease;
+  }
+
+  #sambutan img:hover {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 991px) {
+    #sambutan .sambutan-content {
+      margin-top: 2rem;
+    }
+  }
+
   .skm-summary-box {
     background-color: #ffffff;
     /* White background */
@@ -514,14 +543,6 @@
         @endphp
         <div class="{{ $key === 0 ? 'carousel-item active' : 'carousel-item' }}"
           style="background-image: url('{{ $bgImage }}');">
-          <div class="carousel-container">
-            <div class="carousel-content container">
-              <h2 class="animate__animated animate__fadeInDown">{{ $slider->judul }}</h2>
-              <p class="animate__animated animate__fadeInUp">{{ $slider->deskripsi }}</p>
-              <a href="{{ $slider->link_btn }}"
-                class="btn-get-started animate__animated animate__fadeInUp scrollto">Baca Selengkapnya</a>
-            </div>
-          </div>
         </div>
         @endforeach
       </div>
@@ -534,6 +555,37 @@
     </div>
   </div>
 </section>
+
+{{-- ======= Sambutan Kepala Puskesmas Section ======= --}}
+@if($sambutan)
+<section id="sambutan" class="py-5 bg-light">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Sambutan Kepala Puskesmas</h2>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-4 mb-4 mb-lg-0" data-aos="fade-right">
+        <div class="text-center">
+          @if($sambutan->foto)
+            <img src="{{ asset('storage/' . $sambutan->foto) }}" alt="{{ $sambutan->nama_kepala }}" class="img-fluid rounded shadow" style="max-width: 300px;">
+          @else
+            <img src="{{ asset('assets/img/default-avatar.png') }}" alt="{{ $sambutan->nama_kepala }}" class="img-fluid rounded shadow" style="max-width: 300px;">
+          @endif
+          <h4 class="mt-3 mb-1 fw-bold">{{ $sambutan->nama_kepala }}</h4>
+          <p class="text-muted">{{ $sambutan->jabatan }}</p>
+        </div>
+      </div>
+      <div class="col-lg-8" data-aos="fade-left">
+        <div class="sambutan-content bg-white p-4 rounded shadow-sm">
+          <div class="sambutan-text" style="text-align: justify; line-height: 1.8;">
+            {!! nl2br(e($sambutan->isi_sambutan)) !!}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+@endif
 
 <section id="services" class="services">
   <div class="container" data-aos="fade-up">
@@ -565,37 +617,6 @@
     </div>
   </div>
 </section>
-
-{{-- ======= Video Section ======= --}}
-<section id="video" class="services mx-4">
-  <div class="container" data-aos="fade-up">
-    <div class="section-title">
-      <h2>Video Profile</h2>
-    </div>
-    <div class="row">
-      <div class="col-lg-10 mx-auto">
-        <iframe width="100%" height="500" src="{{ $videoProfil->url_video }}" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-{{-- ======= Instagram Section ======= --}}
-<section id="instagram-feed" class="my-5">
-  <div class="container" data-aos="fade-up">
-    <div class="section-title">
-      <h2>Instagram Feed</h2>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <!-- SociableKIT Instagram Feed -->
-        <div class='sk-instagram-feed' data-embed-id='25586001'></div>
-        <script src='https://widgets.sociablekit.com/instagram-feed/widget.js' defer></script>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 {{-- ======= Berita Section ======= --}}
 <section id="berita" class="services mx-4">

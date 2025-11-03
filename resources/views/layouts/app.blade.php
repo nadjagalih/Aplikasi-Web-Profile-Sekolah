@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Authentication - Website Portal Kecamatan Panggul</title>
-  <link rel="shortcut icon" type="image/png" href="admin/assets/images/logos/favicon.png" />
+  <title>Authentication - Kecamatan Panggul</title>
+  <link href="/assets/img/logo-baru.png" rel="icon" type="image/png">
+  <link href="/assets/img/logo-baru.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="admin/assets/css/styles.min.css" />
 </head>
 

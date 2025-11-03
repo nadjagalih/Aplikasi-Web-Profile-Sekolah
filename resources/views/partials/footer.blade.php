@@ -26,13 +26,12 @@
         </div>
 
         <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Profil Kecamatan</h4>
+          <h4>Profil Puskesmas</h4>
           <ul>
-            <li><i class="bx bx-chevron-right"></i> <a href="/wilayah">Wilayah</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="/sejarah">Sejarah</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/sambutan">Sambutan Kepala Puskesmas</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/sejarah">Profil Puskesmas</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="/visi-misi">Visi & Misi</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="/perangkat-desa">Perangkat Kecamatan</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="/peta-desa">Peta Kecamatan</a></li>
+            <li><i class="bx bx-chevron-right"></i> <a href="/perangkat-desa">Struktur Organisasi</a></li>
           </ul>
         </div>
 
