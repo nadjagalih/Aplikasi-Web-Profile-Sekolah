@@ -8,10 +8,8 @@ use App\Models\PostStatus;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class AdminBeritaController extends Controller
@@ -64,20 +62,22 @@ class AdminBeritaController extends Controller
             'status_id.required'    => 'Wajib memilih status berita !'
         ]);
 
-        if($request->hasFile('gambar')){
-            $path       = 'img-berita/';
-            $file       = $request->file('gambar');
-            $extension  = $file->getClientOriginalExtension(); 
-            $fileName   = uniqid() . '.' . $extension; 
-            $gambar     = $file->storeAs($path, $fileName, 'public');
-        } else {
-            $gambar     = null;
-        }
-
         if ($validator->fails()) {
             return redirect('/admin/berita/create')
                 ->withErrors($validator)
                 ->withInput();
+        }
+
+        if($request->hasFile('gambar')){
+            $file       = $request->file('gambar');
+            $extension  = $file->getClientOriginalExtension(); 
+            $fileName   = uniqid() . '.' . $extension;
+            
+            // Simpan langsung ke public/storage/img-berita
+            $file->move(public_path('storage/img-berita'), $fileName);
+            $gambar = 'img-berita/' . $fileName;
+        } else {
+            $gambar     = null;
         }
 
         $berita = Berita::create([
@@ -155,27 +155,20 @@ class AdminBeritaController extends Controller
         // Handle upload gambar baru
         if($request->hasFile('gambar')){
             // Hapus gambar lama jika ada
-            if($berita->gambar && Storage::disk('public')->exists($berita->gambar)){
-                Storage::disk('public')->delete($berita->gambar);
+            if($berita->gambar && file_exists(public_path('storage/' . $berita->gambar))){
+                unlink(public_path('storage/' . $berita->gambar));
             }
             
-            $path       = 'img-berita/';
             $file       = $request->file('gambar');
             $extension  = $file->getClientOriginalExtension(); 
-            $fileName   = uniqid() . '.' . $extension; 
-            $gambar     = $file->storeAs($path, $fileName, 'public');
+            $fileName   = uniqid() . '.' . $extension;
             
-            // Log untuk debugging
-            Log::info('Gambar baru diupload', [
-                'path' => $gambar,
-                'filename' => $fileName,
-                'old_image' => $berita->gambar
-            ]);
+            // Simpan langsung ke public/storage/img-berita
+            $file->move(public_path('storage/img-berita'), $fileName);
+            $gambar = 'img-berita/' . $fileName;
         } else {
             // Gunakan gambar lama jika tidak ada upload baru
             $gambar = $berita->gambar;
-            
-            Log::info('Menggunakan gambar lama', ['gambar' => $gambar]);
         }
 
         $berita->update([
@@ -201,8 +194,8 @@ class AdminBeritaController extends Controller
         $berita = Berita::find($id);
         
         // Cek dan hapus gambar jika ada
-        if($berita->gambar && Storage::disk('public')->exists($berita->gambar)){
-            Storage::disk('public')->delete($berita->gambar);
+        if($berita->gambar && file_exists(public_path('storage/' . $berita->gambar))){
+            unlink(public_path('storage/' . $berita->gambar));
         }
         
         $berita->delete();

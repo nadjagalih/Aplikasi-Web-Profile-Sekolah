@@ -6,7 +6,6 @@ use App\Models\Berita;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AdminGalleryController extends Controller
@@ -43,18 +42,20 @@ class AdminGalleryController extends Controller
             'keterangan.required'   => 'Form wajib di,'
         ]);
 
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         if ($request->hasFile('gambar')) {
-            $path       = 'img-gallery/';
             $file       = $request->file('gambar');
             $extension  = $file->getClientOriginalExtension();
             $fileName   = uniqid() . '.' . $extension;
-            $gambar     = $file->storeAs($path, $fileName, 'public');
+            
+            // Simpan langsung ke public/storage/img-gallery
+            $file->move(public_path('storage/img-gallery'), $fileName);
+            $gambar = 'img-gallery/' . $fileName;
         } else {
             $gambar     = null;
-        }
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
         }
 
         Gallery::create([
@@ -90,14 +91,18 @@ class AdminGalleryController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            if ($gallery->gambar) {
-                unlink('.' . Storage::url($gallery->gambar));
+            // Hapus gambar lama
+            if ($gallery->gambar && file_exists(public_path('storage/' . $gallery->gambar))) {
+                unlink(public_path('storage/' . $gallery->gambar));
             }
-            $path       = 'img-gallery/';
+            
             $file       = $request->file('gambar');
             $extension  = $file->getClientOriginalExtension();
             $fileName   = uniqid() . '.' . $extension;
-            $gambar     = $file->storeAs($path, $fileName, 'public');
+            
+            // Simpan langsung ke public/storage/img-gallery
+            $file->move(public_path('storage/img-gallery'), $fileName);
+            $gambar = 'img-gallery/' . $fileName;
         } else {
             $validator = Validator::make($request->all(), [
                 'gambar'       => 'mimes:png,jpg,jpeg',
@@ -127,7 +132,12 @@ class AdminGalleryController extends Controller
     public function destroy(string $id)
     {
         $gallery = Gallery::find($id);
-        unlink('.' . Storage::url($gallery->gambar));
+        
+        // Hapus gambar dari storage
+        if ($gallery->gambar && file_exists(public_path('storage/' . $gallery->gambar))) {
+            unlink(public_path('storage/' . $gallery->gambar));
+        }
+        
         $gallery->delete();
 
         return redirect()->back()->with('success', 'Berhasil menghapus data');

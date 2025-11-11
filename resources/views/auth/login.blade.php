@@ -6,7 +6,7 @@
             <div class="card-body p-5">
                 <div class="text-center mb-4">
                     <a href="/" class="d-block">
-                        <img src="admin/assets/images/auth/logo.png" width="180" alt="Logo">
+                        <img src="{{ asset('storage/' . $logo->logo) }}" width="180" alt="Logo">
                     </a>
                 </div>
                 

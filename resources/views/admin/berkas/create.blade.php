@@ -13,6 +13,13 @@
                 <form action="{{ route('berkas.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                {{ session('error') }}
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        @endif
+
                         <div class="form-group">
                             <label for="judul">Judul <span class="text-danger">*</span></label>
                             <input type="text" 
@@ -20,6 +27,7 @@
                                    id="judul" 
                                    name="judul" 
                                    value="{{ old('judul') }}"
+                                   placeholder="Masukkan judul berkas"
                                    required>
                             @error('judul')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -31,7 +39,8 @@
                             <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
                                       id="deskripsi" 
                                       name="deskripsi" 
-                                      rows="3">{{ old('deskripsi') }}</textarea>
+                                      rows="3"
+                                      placeholder="Masukkan deskripsi berkas (opsional)">{{ old('deskripsi') }}</textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -64,7 +73,7 @@
                                             id="status" 
                                             name="status"
                                             required>
-                                        <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                        <option value="Aktif" {{ old('status', 'Aktif') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
                                         <option value="Non-Aktif" {{ old('status') == 'Non-Aktif' ? 'selected' : '' }}>Non-Aktif</option>
                                     </select>
                                     @error('status')

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sambutan;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,12 +37,14 @@ class AdminSambutanController extends Controller
             'jabatan' => 'required',
             'nama' => 'required',
             'isi_sambutan' => 'required',
-            'foto' => 'nullable|mimes:jpeg,jpg,png',
+            'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ], [
             'jabatan.required' => 'Wajib mengisi jabatan!',
             'nama.required' => 'Wajib mengisi nama!',
             'isi_sambutan.required' => 'Wajib mengisi isi sambutan!',
+            'foto.image' => 'File harus berupa gambar!',
             'foto.mimes' => 'Format gambar yang diizinkan: Jpeg, Jpg, Png',
+            'foto.max' => 'Ukuran gambar maksimal 2MB!'
         ]);
 
         if($validator->fails()){
@@ -54,12 +55,12 @@ class AdminSambutanController extends Controller
 
         $fotoPath = null;
         if($request->hasFile('foto')){
-            $path = 'img-sambutan/';
             $file = $request->file('foto');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = uniqid(). '.' . $extension;
-            $file->storeAs($path, $fileName, 'public');
-            $fotoPath = $path . $fileName;
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            
+            // Simpan langsung ke public/storage/sambutan
+            $file->move(public_path('storage/sambutan'), $fileName);
+            $fotoPath = 'sambutan/' . $fileName;
         }
 
         Sambutan::create([
@@ -98,10 +99,14 @@ class AdminSambutanController extends Controller
             'jabatan' => 'required',
             'nama' => 'required',
             'isi_sambutan' => 'required',
+            'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ], [
             'jabatan.required' => 'Wajib mengisi jabatan!',
             'nama.required' => 'Wajib mengisi nama!',
             'isi_sambutan.required' => 'Wajib mengisi isi sambutan!',
+            'foto.image' => 'File harus berupa gambar!',
+            'foto.mimes' => 'Format gambar yang diizinkan: Jpeg, Jpg, Png',
+            'foto.max' => 'Ukuran gambar maksimal 2MB!'
         ]);
 
         if($validator->fails()){
@@ -112,15 +117,17 @@ class AdminSambutanController extends Controller
 
         $fotoPath = $sambutan->foto;
         if($request->hasFile('foto')){
-            if($sambutan->foto && file_exists(public_path('storage/'.$sambutan->foto))){
-                unlink(public_path('storage/'.$sambutan->foto));
+            // Delete old foto if exists
+            if($sambutan->foto && file_exists(public_path('storage/' . $sambutan->foto))){
+                unlink(public_path('storage/' . $sambutan->foto));
             }
-            $path = 'img-sambutan/';
+            
             $file = $request->file('foto');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = uniqid(). '.' . $extension;
-            $file->storeAs($path, $fileName, 'public');
-            $fotoPath = $path . $fileName;
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            
+            // Simpan langsung ke public/storage/sambutan
+            $file->move(public_path('storage/sambutan'), $fileName);
+            $fotoPath = 'sambutan/' . $fileName;
         }
 
         $sambutan->update([
@@ -144,8 +151,9 @@ class AdminSambutanController extends Controller
     {
         $sambutan = Sambutan::findOrFail($id);
         
-        if($sambutan->foto && file_exists(public_path('storage/'.$sambutan->foto))){
-            unlink(public_path('storage/'.$sambutan->foto));
+        // Delete foto if exists
+        if($sambutan->foto && file_exists(public_path('storage/' . $sambutan->foto))){
+            unlink(public_path('storage/' . $sambutan->foto));
         }
         
         $sambutan->delete();

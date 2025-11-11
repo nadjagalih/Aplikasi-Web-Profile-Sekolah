@@ -20,9 +20,11 @@ class AdminKontakController extends Controller
     {
         $kontak = Kontak::find($id);
         $validator = Validator::make($request->all(), [
-            'lokasi'    => 'required',
-            'email'     => 'required|email:rfc,dns',
-            'no_hp'     => 'required'
+            'lokasi'        => 'required',
+            'email'         => 'required|email:rfc,dns',
+            'no_hp'         => 'required',
+            'map_url'       => 'nullable|string',
+            'instagram_url' => 'nullable|string'
         ], [
             'lokasi.required'   => 'Wajib menambahkan lokasi desa !',
             'email.required'    => 'Wajib menambahkan email desa !',
@@ -35,9 +37,11 @@ class AdminKontakController extends Controller
         }
 
         $kontak->update([
-            'lokasi'    => $request->lokasi,
-            'email'     => $request->email,
-            'no_hp'     => $request->no_hp,
+            'lokasi'        => $request->lokasi,
+            'email'         => $request->email,
+            'no_hp'         => $request->no_hp,
+            'map_url'       => $request->map_url,
+            'instagram_url' => $request->instagram_url,
         ]);
 
         return redirect()->back()->with('success', 'Berhasil memperbarui data kontak desa');

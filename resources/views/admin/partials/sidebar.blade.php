@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/admin/sejarah" aria-expanded="false">
+                    <a class="sidebar-link" href="/admin/profilpkm" aria-expanded="false">
                         <span>
                             <i class="ti ti-book"></i>
                         </span>
@@ -70,7 +70,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/admin/perangkat-desa" aria-expanded="false">
+                    <a class="sidebar-link" href="/admin/struktur-organisasi" aria-expanded="false">
                         <span>
                             <i class="ti ti-users"></i>
                         </span>
@@ -197,6 +197,14 @@
                             <i class="ti ti-brand-laravel"></i>
                         </span>
                         <span class="hide-menu">Identitas Situs</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/skm-config" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-brand-laravel"></i>
+                        </span>
+                        <span class="hide-menu">Konfigurasi SKM</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

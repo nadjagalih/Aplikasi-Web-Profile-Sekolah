@@ -30,6 +30,7 @@ class AdminVisiMisiController extends Controller
         $visiMisi  = VisiMisi::find($id);
         $validator = Validator::make($request->all(), [
             'visi'      => 'required',
+            'motto'     => 'nullable',
             'misi'      => 'required'
         ], [
             'visi.required'    => 'Masukkan visi desa !',
@@ -44,6 +45,7 @@ class AdminVisiMisiController extends Controller
 
         $visiMisi->update([
             'visi'  => $request->visi,
+            'motto' => $request->motto,
             'misi'  => $request->misi
         ]);
 

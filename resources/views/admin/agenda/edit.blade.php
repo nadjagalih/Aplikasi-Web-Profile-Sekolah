@@ -83,38 +83,18 @@
                             @enderror
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="warna">Warna di Kalender <span class="text-danger">*</span></label>
-                                    <input type="color" 
-                                           class="form-control @error('warna') is-invalid @enderror" 
-                                           id="warna" 
-                                           name="warna" 
-                                           value="{{ old('warna', $agenda->warna) }}"
-                                           style="height: 50px;"
-                                           required>
-                                    @error('warna')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="status">Status <span class="text-danger">*</span></label>
-                                    <select class="form-control @error('status') is-invalid @enderror" 
-                                            id="status" 
-                                            name="status"
-                                            required>
-                                        <option value="Aktif" {{ old('status', $agenda->status) == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                        <option value="Selesai" {{ old('status', $agenda->status) == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                                        <option value="Dibatalkan" {{ old('status', $agenda->status) == 'Dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
-                                    </select>
-                                    @error('status')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="warna">Warna di Kalender <span class="text-danger">*</span></label>
+                            <input type="color" 
+                                   class="form-control @error('warna') is-invalid @enderror" 
+                                   id="warna" 
+                                   name="warna" 
+                                   value="{{ old('warna', $agenda->warna) }}"
+                                   style="height: 50px;"
+                                   required>
+                            @error('warna')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 

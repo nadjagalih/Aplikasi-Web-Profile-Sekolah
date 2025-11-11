@@ -26,15 +26,26 @@
                         <h5 class="card-title fw-semibold text-white">Gambar Slider</h5>
                     </div>
                     <div class="col-6 text-right">
-                        <a href="/" type="button" class="btn btn-warning float-end" target="_blank">Live Preview</a>
+                        <a href="/admin/slider/create" type="button" class="btn btn-success float-end me-2">
+                            <i class="ti ti-plus"></i> Tambah Slider
+                        </a>
+                        <a href="/" type="button" class="btn btn-warning float-end me-2" target="_blank">Live Preview</a>
                     </div>
                 </div>
             </div>
 
             <div class="card-body">
                 @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                @if (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
 
@@ -47,9 +58,17 @@
                             @endphp
                             <div class="card-img" style="background-image: url('{{ $bgImage }}');"></div>
                             <div class="card-body">
-                                <p>Slider {{ $loop->iteration }}</p>
-                                <h5 class="card-title">{{ $slider->judul }}</h5>
-                                <a href="/admin/slider/{{ $slider->id }}/edit" type="button" class="btn btn-warning">Edit</a>
+                                <p class="mb-3"><strong>Slider {{ $loop->iteration }}</strong></p>
+                                <a href="/admin/slider/{{ $slider->id }}/edit" type="button" class="btn btn-warning">
+                                    <i class="ti ti-edit"></i> Edit
+                                </a>
+                                <form action="/admin/slider/{{ $slider->id }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus slider ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="ti ti-trash"></i> Hapus
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

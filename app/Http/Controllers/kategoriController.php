@@ -6,7 +6,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class kategoriController extends Controller
+class KategoriController extends Controller
 {
     public function index(Kategori $kategori)
     {

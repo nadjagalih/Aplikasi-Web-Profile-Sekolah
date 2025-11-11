@@ -19,20 +19,62 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="layanan" class="form-label">Nama Layanan <span style="color: red">*</span></label>
-                            <input type="text" class="form-control" name="layanan" id="layanan"
-                                value="{{ old('layanan') }}">
-                            @error('layanan')
+                            <label for="nama_layanan" class="form-label">Nama Layanan <span style="color: red">*</span></label>
+                            <input type="text" class="form-control @error('nama_layanan') is-invalid @enderror" 
+                                name="nama_layanan" id="nama_layanan" value="{{ old('nama_layanan') }}" required>
+                            @error('nama_layanan')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
                         <div class="mb-3">
-                            <label for="persyaratan" class="form-label">Persyaratan<span style="color: red">*</span></label>
-                            <textarea class="form-control" id="editor" name="persyaratan" rows="10">{{ old('persyaratan') }}</textarea>
+                            <label for="deskripsi" class="form-label">Deskripsi <span style="color: red">*</span></label>
+                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                                id="editor_deskripsi" name="deskripsi" rows="5" required>{{ old('deskripsi') }}</textarea>
+                            @error('deskripsi')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="persyaratan" class="form-label">Persyaratan</label>
+                            <textarea class="form-control @error('persyaratan') is-invalid @enderror" 
+                                id="editor_persyaratan" name="persyaratan" rows="10">{{ old('persyaratan') }}</textarea>
                             @error('persyaratan')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
+                        <div class="mb-3">
+                            <label for="biaya" class="form-label">Biaya</label>
+                            <input type="text" class="form-control @error('biaya') is-invalid @enderror" 
+                                name="biaya" id="biaya" value="{{ old('biaya') }}" placeholder="Contoh: Gratis, Rp 50.000, BPJS">
+                            @error('biaya')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="gambar" class="form-label">Gambar Layanan</label>
+                            <input type="file" class="form-control @error('gambar') is-invalid @enderror" 
+                                name="gambar" id="gambar" accept="image/*">
+                            <small class="text-muted">Format: JPG, PNG, JPEG. Maksimal 2MB</small>
+                            @error('gambar')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status <span style="color: red">*</span></label>
+                            <select class="form-control @error('status') is-invalid @enderror" name="status" id="status" required>
+                                <option value="Tersedia" {{ old('status') == 'Tersedia' ? 'selected' : '' }}>Tersedia</option>
+                                <option value="Tidak Tersedia" {{ old('status') == 'Tidak Tersedia' ? 'selected' : '' }}>Tidak Tersedia</option>
+                            </select>
+                            @error('status')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <button type="submit" class="btn btn-primary m-1 float-end">Simpan</button>
                     </form>
                 </div>
@@ -47,14 +89,26 @@
 
     <!-- Ck Editor 5 -->
     <script>
-        let editorInstance;
+        let editorDeskripsi, editorPersyaratan;
+        
+        // Editor untuk Deskripsi
         ClassicEditor
-            .create(document.querySelector('#editor'))
+            .create(document.querySelector('#editor_deskripsi'))
             .then(editor => {
-                editorInstance = editor;
+                editorDeskripsi = editor;
             })
             .catch(error => {
-                console.error(error);
+                console.error('Error initializing deskripsi editor:', error);
+            });
+
+        // Editor untuk Persyaratan
+        ClassicEditor
+            .create(document.querySelector('#editor_persyaratan'))
+            .then(editor => {
+                editorPersyaratan = editor;
+            })
+            .catch(error => {
+                console.error('Error initializing persyaratan editor:', error);
             });
     </script>
 @endsection

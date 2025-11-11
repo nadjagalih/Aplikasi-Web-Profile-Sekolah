@@ -4,17 +4,7 @@
 
 # Laravel specific
 /.idea
-/.vscode
 /.vagrant
-/storage/*.key
-/storage/framework/cache/*
-/storage/framework/sessions/*
-/storage/framework/testing/*
-/storage/framework/views/*
-/storage/logs/*
-!storage/app/.gitignore
-!storage/framework/.gitignore
-!storage/logs/.gitignore
 
 # Environment & Configuration
 .env
@@ -31,6 +21,7 @@ yarn-error.log
 *.sqlite
 *.sqlite-journal
 *.sql
+desa-laravel.sql
 
 # Documentation (ignore all .md except README.md)
 *.md

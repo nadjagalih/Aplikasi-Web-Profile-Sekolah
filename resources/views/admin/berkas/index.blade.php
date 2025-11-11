@@ -86,8 +86,8 @@
                                                     <i class="ti ti-trash"></i>
                                                 </button>
                                             </form>
-                                            <a href="{{ route('berkas.download', $item->id) }}" class="btn btn-info mb-1" target="_blank">
-                                                <i class="ti ti-download"></i>
+                                            <a href="{{ route('berkas.preview', $item->id) }}" class="btn btn-info mb-1" target="_blank" title="Lihat Berkas">
+                                                <i class="ti ti-eye"></i>
                                             </a>
                                         </td>
                                     </tr>

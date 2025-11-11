@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Situs;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AdminIdentitasSitusController extends Controller
@@ -21,40 +20,43 @@ class AdminIdentitasSitusController extends Controller
     {
         $situs = Situs::find($id);
         $validator = Validator::make($request->all(), [
-            'nm_desa'       => 'required',
-            'kecamatan'     => 'required',
-            'kabupaten'     => 'required',
-            'provinsi'      => 'required',
-            'kode_pos'      => 'required',
+            'nm_puskesmas'      => 'required',
+            'kecamatan'         => 'required',
+            'kabupaten'         => 'required',
+            'provinsi'          => 'required',
+            'kode_pos'          => 'required',
         ], [
-            'nm_desa'       => 'Wajib menambahkan nama desa !',
-            'kecamatan'     => 'Wajib menambahkan kecamatan !',
-            'kabupaten'     => 'Wajib menambahkan kabupaten !',
-            'kode_pos'      => 'Wajib menambahkan kode pos !'
+            'nm_puskesmas.required'      => 'Wajib menambahkan nama puskesmas !',
+            'kecamatan.required'         => 'Wajib menambahkan kecamatan !',
+            'kabupaten.required'         => 'Wajib menambahkan kabupaten !',
+            'provinsi.required'          => 'Wajib menambahkan provinsi !',
+            'kode_pos.required'          => 'Wajib menambahkan kode pos !'
         ]);
 
         if($request->hasFile('logo')){
-            if($situs->logo){
-                unlink('.' .Storage::url($situs->logo));
+            // Delete old logo if exists
+            if($situs->logo && file_exists(public_path('storage/' . $situs->logo))){
+                unlink(public_path('storage/' . $situs->logo));
             }
             $path       = 'img-logo/';
             $file       = $request->file('logo');
             $extension  = $file->getClientOriginalExtension(); 
-            $fileName   = uniqid() . '.' . $extension; 
-            $logo       = $file->storeAs($path, $fileName, 'public');
+            $fileName   = uniqid() . '.' . $extension;
+            $file->move(public_path('storage/' . $path), $fileName);
+            $logo       = $path . $fileName;
         } else {
             $validator = Validator::make($request->all(), [
-                'nm_desa'       => 'required',
-                'kecamatan'     => 'required',
-                'kabupaten'     => 'required',
-                'provinsi'      => 'required',
-                'kode_pos'      => 'required',
+                'nm_puskesmas'      => 'required',
+                'kecamatan'         => 'required',
+                'kabupaten'         => 'required',
+                'provinsi'          => 'required',
+                'kode_pos'          => 'required',
             ], [
-                'nm_desa'       => 'Wajib menambahkan nama desa !',
-                'kecamatan'     => 'Wajib menambahkan kecamatan !',
-                'kabupaten'     => 'Wajib menambahkan kabupaten !',
-                'provinsi'      => 'Wajib menambahkan provinsi !',
-                'kode_pos'      => 'Wajib menambahkan kode pos !'
+                'nm_puskesmas.required'      => 'Wajib menambahkan nama puskesmas !',
+                'kecamatan.required'         => 'Wajib menambahkan kecamatan !',
+                'kabupaten.required'         => 'Wajib menambahkan kabupaten !',
+                'provinsi.required'          => 'Wajib menambahkan provinsi !',
+                'kode_pos.required'          => 'Wajib menambahkan kode pos !'
             ]);
             $logo = $situs->logo;
         }
@@ -64,12 +66,12 @@ class AdminIdentitasSitusController extends Controller
         }
 
         $situs->update([
-            'logo'       => $logo,
-            'nm_desa'    => $request->nm_desa,
-            'kecamatan'  => $request->kecamatan,
-            'kabupaten'  => $request->kabupaten,
-            'provinsi'   => $request->provinsi,
-            'kode_pos'   => $request->kode_pos,
+            'logo'              => $logo,
+            'nm_puskesmas'      => $request->nm_puskesmas,
+            'kecamatan'         => $request->kecamatan,
+            'kabupaten'         => $request->kabupaten,
+            'provinsi'          => $request->provinsi,
+            'kode_pos'          => $request->kode_pos,
         ]);
 
         return redirect('/admin/identitas-situs')->with('success', 'Berhasil memperbarui identitas situs');

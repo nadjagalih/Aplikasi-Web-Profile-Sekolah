@@ -8,15 +8,23 @@
     }
 
     #header {
-        padding: 30px 0;
-        min-height: 100px;
-        background-color: #fff;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        /* Tambahkan shadow untuk efek lebih bagus */
+        padding: 12px 0 !important;
+        min-height: 70px !important;
+        height: auto !important;
+        background-color: #fff !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+        position: sticky;
+        top: 0;
+        z-index: 997;
+    }
+
+    #header .container {
+        max-width: 1320px;
+        margin: 0 auto;
     }
 
     .logo img {
-        height: 65px !important;
+        height: 50px !important;
         width: auto !important;
         max-height: none !important;
     }
@@ -61,6 +69,59 @@
         color: #0d6efd;
     }
 
+    /* Dropdown Desktop */
+    #navbar .dropdown {
+        position: relative;
+    }
+
+    #navbar .dropdown ul {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        padding: 8px 0;
+        min-width: 240px;
+        z-index: 99;
+    }
+
+    #navbar .dropdown:hover > ul {
+        display: block;
+    }
+
+    /* Area hover yang lebih luas */
+    #navbar .dropdown::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        height: 10px;
+        background: transparent;
+    }
+
+    #navbar .dropdown ul li {
+        margin: 0;
+        padding: 0;
+    }
+
+    #navbar .dropdown ul li a {
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: block;
+        width: 100%;
+        transition: all 0.2s ease;
+    }
+
+    #navbar .dropdown ul li a:hover {
+        background-color: #f8f9fa;
+        color: #0d6efd;
+        padding-left: 25px;
+    }
+
     /* Dropdown aktif */
     #navbar ul li.dropdown.active>a::after {
         width: 100%;
@@ -78,72 +139,126 @@
         color: #0d6efd;
         border-radius: 4px;
         transition: all 0.3s ease;
-        padding: 6px 12px;
+        padding: 8px 16px;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
+        gap: 6px;
     }
 
     .login-btn:hover {
         background-color: #0d6efd;
-        color: white;
+        color: white !important;
     }
 
-    /* Tombol Masuk - Styling Mobile */
-    .login-btn-mobile {
-        display: none;
-        /* Sembunyikan di desktop */
+    /* Tombol Login SKM - Styling Desktop */
+    .login-skm-btn {
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #17a2b8;
+        color: #0046FF;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        padding: 8px 16px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 
-    /* Mobile specific styles */
+    .login-skm-btn:hover {
+        background-color: #0046FF;
+        color: white !important;
+    }
+
+    /* Mobile Navigation Toggle */
     .mobile-nav-toggle {
         color: #000;
-        font-size: 28px;
+        font-size: 32px;
         cursor: pointer;
         display: none;
         line-height: 0;
-        transition: 0.5s;
+        transition: 0.3s;
+        padding: 8px;
     }
 
+    .mobile-nav-toggle:hover {
+        color: #0d6efd;
+    }
+
+    /* Mobile & Tablet Responsive */
     @media (max-width: 991px) {
+        #header {
+            padding: 10px 0 !important;
+            min-height: 60px !important;
+        }
+
+        #header .container {
+            padding: 0 15px;
+            justify-content: space-between;
+        }
+
+        .logo img {
+            height: 40px !important;
+        }
+
+        .mobile-nav-toggle {
+            display: block;
+        }
+
+        /* Desktop login button - hide on mobile */
+        #navbar > ul > li.ms-4,
+        #navbar > ul > li.ms-2 {
+            display: none;
+        }
+
+        /* Mobile Menu Sidebar */
         #navbar ul {
             display: none;
             position: fixed;
             top: 0;
             right: -100%;
-            width: 100%;
+            width: 280px;
             height: 100vh;
             background-color: #fff;
             flex-direction: column;
             justify-content: flex-start;
-            padding-top: 80px;
+            padding: 20px 0;
             transition: right 0.3s ease-in-out;
-            z-index: 999;
+            z-index: 9999;
             overflow-y: auto;
             align-items: flex-start;
-            padding-left: 0;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         #navbar ul.navbar-mobile {
             right: 0;
+            display: flex;
         }
 
         #navbar ul li {
             margin: 0;
             width: 100%;
-            padding: 10px 20px;
-            border-bottom: 1px solid #eee;
+            padding: 0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        #navbar ul li:last-of-type {
+        #navbar ul li:first-child {
+            margin-top: 60px;
+        }
+
+        #navbar ul li:last-child {
             border-bottom: none;
         }
 
         #navbar ul li a {
-            padding: 10px 0;
+            padding: 15px 25px;
             width: 100%;
-            display: block;
-            font-size: 18px;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
         }
 
         #navbar ul li a::after {
@@ -156,88 +271,145 @@
             background-color: #f8f9fa;
         }
 
-        /* Dropdown specific styles for mobile */
+        #navbar ul li a i {
+            margin-right: 8px;
+        }
+
+        /* Dropdown Mobile */
+        #navbar .dropdown > a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         #navbar .dropdown ul {
             position: static;
-            display: block;
-            background-color: #f0f0f0;
-            padding: 10px 0 10px 20px;
-            margin-top: 5px;
-            width: auto;
-            height: auto;
-            right: auto;
-            transition: none;
-            overflow: visible;
-            list-style: none;
+            display: none;
+            background-color: #f8f9fa;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            box-shadow: none;
+            border-radius: 0;
         }
 
-        #navbar .dropdown .dropdown ul {
-            padding-left: 40px;
-        }
-
-        #navbar .dropdown>.dropdown-active {
+        #navbar .dropdown.dropdown-active > ul {
             display: block;
         }
 
-        #navbar .dropdown>a .bi-chevron-down {
-            float: right;
-            transform: rotate(0deg);
-            transition: 0.3s;
+        #navbar .dropdown ul li {
+            border-bottom: 1px solid #e9ecef;
         }
 
-        #navbar .dropdown.dropdown-active>a .bi-chevron-down {
+        #navbar .dropdown ul li:last-child {
+            border-bottom: none;
+        }
+
+        #navbar .dropdown ul li a {
+            padding-left: 45px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        #navbar .dropdown > a .bi-chevron-down {
+            transition: transform 0.3s;
+            font-size: 16px;
+        }
+
+        #navbar .dropdown.dropdown-active > a .bi-chevron-down {
             transform: rotate(180deg);
         }
 
-        .mobile-nav-toggle {
-            display: block;
-        }
-
-        #header .container {
-            padding: 0 15px;
-            justify-content: space-between;
-        }
-
-        /* Tombol "Masuk" mobile di dalam nav menu */
+        /* Mobile Login Button */
         .login-mobile {
             display: block;
             width: 100%;
-            padding: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
+            padding: 20px 25px;
+            border-top: 2px solid #e9ecef;
+            margin-top: auto;
         }
 
-        .login-mobile .login-btn-mobile {
-            width: 100%;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            background-color: #0d6efd;
-            color: white;
-            border: 1px solid #0d6efd;
-            border-radius: 4px;
-            display: inline-flex;
+        .login-mobile a {
+            display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            background-color: #0d6efd;
+            color: white !important;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .login-mobile .login-btn-mobile:hover {
+        .login-mobile a:hover {
             background-color: #0c5ed7;
-            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+        }
+
+        /* Mobile Login SKM Button */
+        .login-skm-mobile {
+            display: block;
+            width: 100%;
+            padding: 0 25px 20px 25px;
+        }
+
+        .login-skm-mobile a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            background-color: #0046FF;
+            color: white !important;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-skm-mobile a:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
         }
     }
 
-    /* Overlay untuk mobile nav */
+    /* Hide mobile login button on desktop */
+    .login-mobile,
+    .login-skm-mobile {
+        display: none;
+    }
+
+    /* Overlay untuk mobile nav - DISABLED */
     body.mobile-nav-active {
         overflow: hidden;
     }
 
-    body.mobile-nav-active:before {
-        content: "";
-        background: rgba(0, 0, 0, 0.6);
-        position: fixed;
-        inset: 0;
-        z-index: 998;
+    /* Extra Small Mobile */
+    @media (max-width: 575px) {
+        #navbar ul {
+            width: 100%;
+        }
+
+        .logo img {
+            height: 35px !important;
+        }
+
+        #navbar ul li a {
+            font-size: 14px;
+        }
+
+        .login-mobile a {
+            font-size: 14px;
+            padding: 10px 16px;
+        }
     }
 </style>
 
@@ -260,13 +432,13 @@
                     <a href="#"><span>Profil</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="/sambutan" class="{{ Request::is('sambutan') ? 'active' : '' }}">Sambutan Kepala Puskesmas</a></li>
-                        <li><a href="/sejarah" class="{{ Request::is('sejarah') ? 'active' : '' }}">Profil Puskesmas</a></li>
+                        <li><a href="/profil" class="{{ Request::is('profil') ? 'active' : '' }}">Profil Puskesmas</a></li>
                         <li><a href="/visi-misi" class="{{ Request::is('visi-misi') ? 'active' : '' }}">Visi & Misi</a></li>
-                        <li><a href="/perangkat-desa" class="{{ Request::is('perangkat-desa') ? 'active' : '' }}">Struktur Organisasi</a></li>
+                        <li><a href="/struktur-organisasi" class="{{ Request::is('struktur-organisasi') ? 'active' : '' }}">Struktur Organisasi</a></li>
                     </ul>
                 </li>
 
-                <li class="dropdown {{ Request::is('pengumuman', 'berita', 'gallery', 'berkas') ? 'active' : '' }}">
+                <li class="dropdown {{ Request::is('pengumuman', 'berita', 'gallery', 'berkas', 'agenda') ? 'active' : '' }}">
                     <a href="#"><span>Informasi</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="/berita" class="{{ Request::is('berita') ? 'active' : '' }}">Berita</a></li>
@@ -287,17 +459,127 @@
 
                 <li><a class="nav-link scrollto {{ Request::is('kontak') ? 'active' : '' }}" href="/kontak"><span>Kontak</span></a></li>
 
-                <li class="ms-4">
-                    <a href="/login"
-                        class="login-btn"
-                        onmouseover="this.style.backgroundColor='#0d6efd'; this.style.color='white';"
-                        onmouseout="this.style.backgroundColor='transparent'; this.style.color='#0d6efd';">
-                        <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
+                <!-- Desktop Login SKM Button -->
+                @php
+                    $skmConfig = \App\Models\SkmConfig::first();
+                @endphp
+                @if($skmConfig && $skmConfig->login_url)
+                <li class="ms-2">
+                    <a href="{{ $skmConfig->login_url }}" target="_blank" class="login-skm-btn">
+                        Login SKM
                     </a>
                 </li>
+                @endif
+
+                <!-- Desktop Login Button -->
+                <li class="ms-4">
+                    <a href="/login" class="login-btn">
+                        <i class="bi bi-box-arrow-in-right"></i> Masuk
+                    </a>
+                </li>
+
+                <!-- Mobile Login Button (shown only in mobile menu) -->
+                <li class="login-mobile">
+                    <a href="/login">
+                        <i class="bi bi-box-arrow-in-right"></i> Masuk
+                    </a>
+                </li>
+
+                <!-- Mobile Login SKM Button (shown only in mobile menu) -->
+                @if($skmConfig && $skmConfig->login_url)
+                <li class="login-skm-mobile">
+                    <a href="{{ $skmConfig->login_url }}" target="_blank">
+                        Login SKM
+                    </a>
+                </li>
+                @endif
             </ul>
 
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
     </div>
 </header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
+
+    // Mobile Navigation Toggle
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const navbar = document.querySelector('#navbar ul');
+    const body = document.body;
+
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navbar.classList.toggle('navbar-mobile');
+            body.classList.toggle('mobile-nav-active');
+            
+            // Toggle icon between menu and close
+            if (navbar.classList.contains('navbar-mobile')) {
+                this.classList.remove('bi-list');
+                this.classList.add('bi-x');
+            } else {
+                this.classList.remove('bi-x');
+                this.classList.add('bi-list');
+            }
+        });
+    }
+
+    // Mobile Dropdown Toggle
+    const dropdownLinks = document.querySelectorAll('#navbar .dropdown > a');
+    
+    dropdownLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth < 992) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                
+                // Close other dropdowns
+                dropdownLinks.forEach(function(otherLink) {
+                    if (otherLink !== link) {
+                        otherLink.parentElement.classList.remove('dropdown-active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                parent.classList.toggle('dropdown-active');
+            }
+        });
+    });
+
+    // Close mobile menu when clicking on a link (except dropdown triggers)
+    const navLinks = document.querySelectorAll('#navbar ul li:not(.dropdown) > a, #navbar .dropdown ul li a');
+    
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            if (navbar.classList.contains('navbar-mobile')) {
+                navbar.classList.remove('navbar-mobile');
+                body.classList.remove('mobile-nav-active');
+                mobileNavToggle.classList.remove('bi-x');
+                mobileNavToggle.classList.add('bi-list');
+                
+                // Close all dropdowns
+                document.querySelectorAll('#navbar .dropdown').forEach(function(dropdown) {
+                    dropdown.classList.remove('dropdown-active');
+                });
+            }
+        });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 991) {
+            navbar.classList.remove('navbar-mobile');
+            body.classList.remove('mobile-nav-active');
+            mobileNavToggle.classList.remove('bi-x');
+            mobileNavToggle.classList.add('bi-list');
+            
+            // Close all dropdowns
+            document.querySelectorAll('#navbar .dropdown').forEach(function(dropdown) {
+                dropdown.classList.remove('dropdown-active');
+            });
+        }
+    });
+});
+</script>

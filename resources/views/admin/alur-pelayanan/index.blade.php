@@ -9,11 +9,6 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Kelola Alur Pelayanan</h3>
-                    <div class="card-tools">
-                        <a href="{{ route('alur-pelayanan.create') }}" class="btn btn-primary btn-sm">
-                            <i class="fas fa-plus"></i> Tambah Alur Pelayanan
-                        </a>
-                    </div>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -25,71 +20,138 @@
                         </div>
                     @endif
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th width="5%">No</th>
-                                    <th width="10%">Urutan</th>
-                                    <th width="20%">Judul</th>
-                                    <th width="35%">Deskripsi</th>
-                                    <th width="10%">Icon</th>
-                                    <th width="10%">Status</th>
-                                    <th width="10%">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($alurPelayanans as $index => $alur)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td><span class="badge badge-primary">Langkah {{ $alur->urutan }}</span></td>
-                                        <td>{{ $alur->judul }}</td>
-                                        <td>{{ Str::limit($alur->deskripsi, 100) }}</td>
-                                        <td>
-                                            @if($alur->icon)
-                                                <img src="{{ asset('storage/' . $alur->icon) }}" 
-                                                     alt="{{ $alur->judul }}" 
-                                                     class="img-thumbnail" 
-                                                     style="max-width: 50px;">
-                                            @else
-                                                <span class="badge badge-secondary">Tidak ada</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($alur->status == 'Aktif')
-                                                <span class="badge badge-success">Aktif</span>
-                                            @else
-                                                <span class="badge badge-secondary">Non-Aktif</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('alur-pelayanan.edit', $alur->id) }}" 
-                                               class="btn btn-warning mb-1">
-                                                <i class="ti ti-edit"></i>
-                                            </a>
-                                            <form action="{{ route('alur-pelayanan.destroy', $alur->id) }}" 
-                                                  method="POST" 
-                                                  class="d-inline"
-                                                  onsubmit="return confirm('Yakin ingin menghapus alur pelayanan ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger mb-1">
-                                                    <i class="ti ti-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="7" class="text-center">Belum ada data alur pelayanan</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
+                    <div class="row">
+                        <!-- Form Upload -->
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">{{ $alurPelayanan ? 'Update Gambar' : 'Upload Gambar' }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form action="{{ route('alur-pelayanan.store') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        
+                                        <div class="form-group">
+                                            <label for="gambar">Pilih Gambar</label>
+                                            <div class="custom-file">
+                                                <input type="file" 
+                                                       class="custom-file-input @error('gambar') is-invalid @enderror" 
+                                                       id="gambar" 
+                                                       name="gambar"
+                                                       accept="image/jpeg,image/png,image/jpg">
+                                                <label class="custom-file-label" for="gambar">Pilih file gambar...</label>
+                                            </div>
+                                            @error('gambar')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                            <small class="form-text text-muted">Format: JPG, PNG. Maksimal 5MB</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="deskripsi">Deskripsi</label>
+                                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                                                      id="editor" 
+                                                      name="deskripsi" 
+                                                      rows="13">{{ old('deskripsi', $alurPelayanan->deskripsi ?? '') }}</textarea>
+                                            @error('deskripsi')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                            <small class="form-text text-muted">Deskripsi akan ditampilkan di bawah gambar alur pelayanan</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="alert alert-light border">
+                                                <strong>Langkah:</strong>
+                                                <ul class="mb-0 mt-2 pl-3 small">
+                                                    <li>Upload gambar alur pelayanan</li>
+                                                    <li>Tambahkan deskripsi</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-0">
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                                <i class="fas fa-save"></i> {{ $alurPelayanan ? 'Update' : 'Upload' }}
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    @if($alurPelayanan && $alurPelayanan->gambar)
+                                        <hr>
+                                        <form action="{{ route('alur-pelayanan.destroy', $alurPelayanan->id) }}" 
+                                              method="POST" 
+                                              onsubmit="return confirm('Yakin ingin menghapus gambar alur pelayanan?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-block">
+                                                <i class="fas fa-trash"></i> Hapus Gambar
+                                            </button>
+                                        </form>
+
+                                        <div class="mt-3 border-top pt-3">
+                                            <small class="text-muted d-block"><strong>File:</strong> {{ basename($alurPelayanan->gambar) }}</small>
+                                            <small class="text-muted d-block"><strong>Update:</strong> {{ $alurPelayanan->updated_at->format('d M Y H:i') }}</small>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preview Gambar -->
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Preview Gambar</h5>
+                                </div>
+                                <div class="card-body text-center" style="min-height: 300px; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+                                    @if($alurPelayanan && $alurPelayanan->gambar)
+                                        <img src="{{ asset('storage/' . $alurPelayanan->gambar) }}" 
+                                             alt="Alur Pelayanan" 
+                                             class="img-fluid"
+                                             style="max-height: 400px; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    @else
+                                        <div class="text-center text-muted">
+                                            <i class="fas fa-image" style="font-size: 60px; opacity: 0.3;"></i>
+                                            <p class="mt-3">Belum ada gambar</p>
+                                            <small>Upload di form sebelah</small>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+
+    // CK Editor 5
+    let editorInstance;
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+             editorInstance = editor;
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+@endpush
 @endsection

@@ -30,9 +30,16 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="misi" class="form-label">Deskripsi <span style="color: red">*</span></label>
-                            <textarea class="form-control" id="visi" name="misi" rows="5">{{ old('misi', $visiMisi->misi) }}</textarea>
+                            <label for="misi" class="form-label">Misi <span style="color: red">*</span></label>
+                            <textarea class="form-control" id="misi" name="misi" rows="5">{{ old('misi', $visiMisi->misi) }}</textarea>
                             @error('misi')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="motto" class="form-label">Motto</label>
+                            <textarea class="form-control" id="motto" name="motto" rows="3">{{ old('motto', $visiMisi->motto) }}</textarea>
+                            @error('motto')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>

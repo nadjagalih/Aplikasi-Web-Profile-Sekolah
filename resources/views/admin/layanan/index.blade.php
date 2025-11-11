@@ -29,8 +29,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Layanan</th>
+                                        <th>Nama Layanan</th>
+                                        <th>Deskripsi</th>
                                         <th>Persyaratan</th>
+                                        <th>Biaya</th>
+                                        <th>Status</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -38,8 +41,15 @@
                                     @foreach ($layanans as $layanan)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $layanan->layanan }}</td>
-                                            <td>{!! $layanan->persyaratan !!}</td>
+                                            <td>{{ $layanan->nama_layanan }}</td>
+                                            <td>{!! Str::limit(strip_tags($layanan->deskripsi), 100) !!}</td>
+                                            <td>{!! Str::limit(strip_tags($layanan->persyaratan), 100) !!}</td>
+                                            <td>{{ $layanan->biaya ?? '-' }}</td>
+                                            <td>
+                                                <span class="badge bg-{{ $layanan->status == 'Tersedia' ? 'success' : 'danger' }}">
+                                                    {{ $layanan->status }}
+                                                </span>
+                                            </td>
                                             <td>
                                                 <a href="/admin/layanan/{{ $layanan->id }}/edit" type="button"
                                                     class="btn btn-warning mb-1"><i class="ti ti-edit"></i></a>

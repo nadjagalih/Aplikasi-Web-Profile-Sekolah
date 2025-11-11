@@ -5,8 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title', 'Dashboard Admin') - Puskesmas</title>
-  <link href="/assets/img/logo-baru.png" rel="icon" type="image/png">
-  <link href="/assets/img/logo-baru.png" rel="apple-touch-icon">
+  <!-- Favicons - Multiple sizes for better compatibility -->
+  <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png?v=2">
+  <link rel="manifest" href="/assets/img/site.webmanifest?v=2">
   <link rel="stylesheet" href="/admin/assets/css/styles.min.css" />
 
   <!-- Jquery -->

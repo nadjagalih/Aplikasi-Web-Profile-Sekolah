@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Umkm;
 use App\Models\Berita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -34,13 +33,11 @@ class HomeController extends Controller
         $viewsToday = $query->sum('views');
 
         $totalBerita    = Berita::count();
-        $totalProduk    = Umkm::count();
         $beritas        = Berita::orderBy('created_at', 'DESC')->take(10)->get();
         $komentars      = Comment::orderBy('created_at', 'DESC')->take(10)->get();
 
         return view('admin.dashboard', [
             'totalBerita'    => $totalBerita,
-            'totalProduk'    => $totalProduk,
             'viewsToday'     => $viewsToday,
             'beritas'        => $beritas,
             'komentars'      => $komentars

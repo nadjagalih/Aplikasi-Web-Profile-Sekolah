@@ -39,9 +39,9 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nm_desa" class="form-label">Nama Kecamatan <span style="color: red">*</span></label>
-                                    <input type="text" class="form-control" name="nm_desa" id="nm_desa" value="{{ old('nm_desa', $situs->nm_desa) }}">
-                                    @error('nm_desa')
+                                    <label for="nm_puskesmas" class="form-label">Nama Puskesmas <span style="color: red">*</span></label>
+                                    <input type="text" class="form-control" name="nm_puskesmas" id="nm_puskesmas" value="{{ old('nm_puskesmas', $situs->nm_puskesmas) }}">
+                                    @error('nm_puskesmas')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

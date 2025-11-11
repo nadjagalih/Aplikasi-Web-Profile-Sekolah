@@ -6,6 +6,7 @@ use App\Models\Layanan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AdminLayananController extends Controller
 {
@@ -33,22 +34,44 @@ class AdminLayananController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'layanan'       => 'required',
-            'persyaratan'   => 'required'
+            'nama_layanan'  => 'required|string|max:255',
+            'deskripsi'     => 'required',
+            'persyaratan'   => 'nullable',
+            'biaya'         => 'nullable|string|max:255',
+            'gambar'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'status'        => 'required|in:Tersedia,Tidak Tersedia'
         ], [
-            'layanan.required'  => 'Form wajib di isi !',
-            'persyaratan.required' => 'Form wajib di,'
+            'nama_layanan.required'  => 'Nama layanan wajib diisi!',
+            'deskripsi.required'     => 'Deskripsi wajib diisi!',
+            'status.required'        => 'Status wajib dipilih!',
+            'gambar.image'           => 'File harus berupa gambar!',
+            'gambar.max'             => 'Ukuran gambar maksimal 2MB!'
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        Layanan::create([
-            'layanan'       => $request->layanan,
+        $data = [
+            'nama_layanan'  => $request->nama_layanan,
+            'slug'          => Str::slug($request->nama_layanan),
+            'deskripsi'     => $request->deskripsi,
             'persyaratan'   => $request->persyaratan,
-            'user_id'       =>  auth()->user()->id,
-        ]);
+            'biaya'         => $request->biaya,
+            'status'        => $request->status
+        ];
+
+        // Handle image upload
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $gambarName = time() . '_' . $gambar->getClientOriginalName();
+            
+            // Simpan langsung ke public/storage/layanan
+            $gambar->move(public_path('storage/layanan'), $gambarName);
+            $data['gambar'] = 'layanan/' . $gambarName;
+        }
+
+        Layanan::create($data);
 
         return redirect('/admin/layanan')->with('success', 'Berhasil menambahkan informasi layanan baru');
     }
@@ -70,22 +93,51 @@ class AdminLayananController extends Controller
     public function update(Request $request, string $id)
     {
         $layanan = Layanan::find($id);
+        
         $validator = Validator::make($request->all(), [
-            'layanan'       => 'required',
-            'persyaratan'   => 'required'
+            'nama_layanan'  => 'required|string|max:255',
+            'deskripsi'     => 'required',
+            'persyaratan'   => 'nullable',
+            'biaya'         => 'nullable|string|max:255',
+            'gambar'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'status'        => 'required|in:Tersedia,Tidak Tersedia'
         ], [
-            'layanan.required'  => 'Form wajib di isi !',
-            'persyaratan.required' => 'Form wajib di,'
+            'nama_layanan.required'  => 'Nama layanan wajib diisi!',
+            'deskripsi.required'     => 'Deskripsi wajib diisi!',
+            'status.required'        => 'Status wajib dipilih!',
+            'gambar.image'           => 'File harus berupa gambar!',
+            'gambar.max'             => 'Ukuran gambar maksimal 2MB!'
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        $layanan->update([
-            'layanan'       => $request->layanan,
-            'persyaratan'   => $request->persyaratan
-        ]);
+        $data = [
+            'nama_layanan'  => $request->nama_layanan,
+            'slug'          => Str::slug($request->nama_layanan),
+            'deskripsi'     => $request->deskripsi,
+            'persyaratan'   => $request->persyaratan,
+            'biaya'         => $request->biaya,
+            'status'        => $request->status
+        ];
+
+        // Handle image upload
+        if ($request->hasFile('gambar')) {
+            // Delete old image if exists
+            if ($layanan->gambar && file_exists(public_path('storage/' . $layanan->gambar))) {
+                unlink(public_path('storage/' . $layanan->gambar));
+            }
+            
+            $gambar = $request->file('gambar');
+            $gambarName = time() . '_' . $gambar->getClientOriginalName();
+            
+            // Simpan langsung ke public/storage/layanan
+            $gambar->move(public_path('storage/layanan'), $gambarName);
+            $data['gambar'] = 'layanan/' . $gambarName;
+        }
+
+        $layanan->update($data);
 
         return redirect('/admin/layanan')->with('success', 'Berhasil memperbarui data informasi layanan');
     }
@@ -96,6 +148,12 @@ class AdminLayananController extends Controller
     public function destroy(string $id)
     {
         $layanan = Layanan::find($id);
+        
+        // Delete image if exists
+        if ($layanan->gambar && file_exists(public_path('storage/' . $layanan->gambar))) {
+            unlink(public_path('storage/' . $layanan->gambar));
+        }
+        
         $layanan->delete();
 
         return redirect()->back()->with('success', 'Berhasil menghapus data');

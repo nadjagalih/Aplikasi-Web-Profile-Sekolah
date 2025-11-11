@@ -30,12 +30,11 @@
                             <thead>
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th width="20%">Judul</th>
+                                    <th width="25%">Judul</th>
                                     <th width="15%">Tanggal Mulai</th>
                                     <th width="15%">Tanggal Selesai</th>
-                                    <th width="15%">Tempat</th>
+                                    <th width="20%">Tempat</th>
                                     <th width="10%">Warna</th>
-                                    <th width="10%">Status</th>
                                     <th width="10%">Aksi</th>
                                 </tr>
                             </thead>
@@ -51,15 +50,6 @@
                                             <div class="d-flex align-items-center">
                                                 <span class="color-box" {!! 'style="background-color: ' . $agenda->warna . '"' !!}></span>
                                             </div>
-                                        </td>
-                                        <td>
-                                            @if($agenda->status == 'Aktif')
-                                                <span class="badge text-bg-success p-2">Aktif</span>
-                                            @elseif($agenda->status == 'Selesai')
-                                                <span class="badge text-bg-secondary p-2">Selesai</span>
-                                            @else
-                                                <span class="badge text-bg-danger p-2">Dibatalkan</span>
-                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{ route('agenda.edit', $agenda->id) }}" 
@@ -80,7 +70,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="text-center">Belum ada data agenda</td>
+                                        <td colspan="7" class="text-center">Belum ada data agenda</td>
                                     </tr>
                                 @endforelse
                             </tbody>

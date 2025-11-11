@@ -7,7 +7,7 @@
       <div class="card-body p-4 bg-primary">
         <div class="row">
           <div class="col-lg-6">
-            <h4 class="card-title my-5 fw-semibold text-white">Selamat Datang {{ auth()->user()->name }}, Di Website Portal {{ $nm_desa }}</h4>
+            <h4 class="card-title my-5 fw-semibold text-white">Selamat Datang {{ auth()->user()->name }}, Di Website Portal {{ $nm_puskesmas }}</h4>
           </div>
           <div class="col-lg-6">
             <img src="/admin/assets/images/dashboard/logogalek.png" alt="Selamat Datang" style="width: 100px;" class="float-end">
@@ -20,7 +20,7 @@
 
 
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-6">
     <div class="card overflow-hidden bg-danger text-white">
       <div class="card-body p-4">
         <h5 class="card-title mb-9 fw-semibold text-white">Visitor Hari Ini</h5>
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="col-lg-4">
+  <div class="col-lg-6">
     <div class="card overflow-hidden bg-success text-white">
       <div class="card-body p-4">
         <h5 class="card-title mb-9 fw-semibold text-white">Jumlah Berita</h5>
@@ -49,24 +49,6 @@
           <div class="col-4">
             <div class="d-flex justify-content-center">
               <i class="ti ti-edit" style="font-size: 2rem;"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4">
-    <div class="card overflow-hidden bg-warning text-white">
-      <div class="card-body p-4">
-        <h5 class="card-title mb-9 fw-semibold text-white">Jumlah Produk UMKM</h5>
-        <div class="row align-items-center">
-          <div class="col-8">
-            <h4 class="fw-semibold mb-3 text-white">{{ $totalProduk }}</h4>
-          </div>
-          <div class="col-4">
-            <div class="d-flex justify-content-center">
-              <i class="ti ti-building-store" style="font-size: 2rem;"></i>
             </div>
           </div>
         </div>

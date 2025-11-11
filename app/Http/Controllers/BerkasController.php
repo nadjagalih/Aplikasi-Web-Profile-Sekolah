@@ -23,7 +23,7 @@ class BerkasController extends Controller
         // Increment download count
         $berkas->increment('download_count');
         
-        $filePath = storage_path('app/public/' . $berkas->file_path);
+        $filePath = public_path('storage/' . $berkas->file_path);
         
         if (file_exists($filePath)) {
             return response()->download($filePath, $berkas->file_name);

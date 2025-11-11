@@ -34,19 +34,31 @@
           <div class="col">
             <div class="card h-100 shadow text-center">
               <div class="card-body p-0">
+                @if($kontak->map_url)
                 <iframe
                   width="100%"
                   height="300"
                   frameborder="0"
-                  scrolling="no"
-                  marginheight="0"
-                  marginwidth="0"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
                   id="gmap_canvas"
-                  src="https://maps.google.com/maps?width=520&height=402&hl=en&q={{ urlencode($kontak->lokasi) }}&t=&z=14&ie=UTF8&iwloc=B&output=embed">
+                  src="{{ $kontak->map_url }}">
                 </iframe>
-              </div>
-              <div class="card-footer bg-white">
-                <h5 class="mt-2">Lokasi Kecamatan</h5>
+                @else
+                <iframe
+                  width="100%"
+                  height="300"
+                  frameborder="0"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  id="gmap_canvas"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252760.86139202642!2d111.47004833973135!3d-8.163560447044588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e791ad33bad6389%3A0x19f173f90f85d9be!2sTrenggalek%2C%20Kabupaten%20Trenggalek%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1762759569624!5m2!1sid!2sid">
+                </iframe>
+                @endif
               </div>
             </div>
           </div>
@@ -82,7 +94,7 @@
           </div>
 
           <div class="col">
-            <a href="https://www.instagram.com/kecamatan_panggul?igsh=MTkwdTYzZWZkZHJtNg==" target="_blank" class="text-decoration-none text-dark h-100 d-block">
+            <a href="{{ $kontak->instagram_url }}" target="_blank" class="text-decoration-none text-dark h-100 d-block">
               <div class="card h-100 shadow text-center d-flex flex-column justify-content-center py-4">
                 <div class="card-body">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="60" class="mx-auto mb-3">
