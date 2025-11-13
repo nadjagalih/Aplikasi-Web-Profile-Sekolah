@@ -426,38 +426,58 @@
 
         <nav id="navbar" class="navbar">
             <ul class="d-flex align-items-center m-0 p-0">
-                <li><a class="nav-link scrollto {{ Request::is('/') ? 'active' : '' }}" href="/"><span>Beranda</span></a></li>
-
-                <li class="dropdown {{ Request::is('sambutan', 'sejarah', 'visi-misi', 'perangkat-desa') ? 'active' : '' }}">
-                    <a href="#"><span>Profil</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="/sambutan" class="{{ Request::is('sambutan') ? 'active' : '' }}">Sambutan Kepala Puskesmas</a></li>
-                        <li><a href="/profil" class="{{ Request::is('profil') ? 'active' : '' }}">Profil Puskesmas</a></li>
-                        <li><a href="/visi-misi" class="{{ Request::is('visi-misi') ? 'active' : '' }}">Visi & Misi</a></li>
-                        <li><a href="/struktur-organisasi" class="{{ Request::is('struktur-organisasi') ? 'active' : '' }}">Struktur Organisasi</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown {{ Request::is('pengumuman', 'berita', 'gallery', 'berkas', 'agenda') ? 'active' : '' }}">
-                    <a href="#"><span>Informasi</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="/berita" class="{{ Request::is('berita') ? 'active' : '' }}">Berita</a></li>
-                        <li><a href="/pengumuman" class="{{ Request::is('pengumuman') ? 'active' : '' }}">Pengumuman</a></li>
-                        <li><a href="/agenda" class="{{ Request::is('agenda') ? 'active' : '' }}">Agenda</a></li>
-                        <li><a href="/gallery" class="{{ Request::is('gallery') ? 'active' : '' }}">Galeri</a></li>
-                        <li><a href="/berkas" class="{{ Request::is('berkas') ? 'active' : '' }}">Berkas</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown {{ Request::is('layanan', 'alur-pelayanan') ? 'active' : '' }}">
-                    <a href="#"><span>Layanan Kesehatan</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="/layanan" class="{{ Request::is('layanan') ? 'active' : '' }}">Jenis Layanan</a></li>
-                        <li><a href="/alur-pelayanan" class="{{ Request::is('alur-pelayanan') ? 'active' : '' }}">Alur Pelayanan</a></li>
-                    </ul>
-                </li>
-
-                <li><a class="nav-link scrollto {{ Request::is('kontak') ? 'active' : '' }}" href="/kontak"><span>Kontak</span></a></li>
+                @php
+                    $headerMenus = get_menus('header');
+                    $currentPath = Request::path();
+                @endphp
+                
+                {{-- Menu Dinamis dari Database --}}
+                @foreach($headerMenus as $menu)
+                    @php
+                        $menuUrl = ltrim($menu->full_url, '/');
+                        $isActive = ($currentPath === $menuUrl || Request::is($menuUrl)) ? 'active' : '';
+                        $hasChildren = $menu->activeChildren->count() > 0;
+                    @endphp
+                    
+                    @if($hasChildren)
+                        {{-- Menu with Dropdown --}}
+                        <li class="dropdown {{ $isActive }}">
+                            <a href="#"><span>{{ $menu->title }}</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                @foreach($menu->activeChildren as $child)
+                                    @php
+                                        $childUrl = ltrim($child->full_url, '/');
+                                        $childActive = ($currentPath === $childUrl || Request::is($childUrl)) ? 'active' : '';
+                                    @endphp
+                                    <li>
+                                        <a href="{{ url($child->full_url) }}" 
+                                           class="{{ $childActive }}" 
+                                           target="{{ $child->target }}">
+                                            @if($child->icon)
+                                                <i class="{{ $child->icon }}"></i>
+                                            @endif
+                                            {{ $child->title }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        {{-- Single Menu Item --}}
+                        <li>
+                            <a class="nav-link scrollto {{ $isActive }}" 
+                               href="{{ url($menu->full_url) }}" 
+                               target="{{ $menu->target }}">
+                                <span>
+                                    @if($menu->icon)
+                                        <i class="{{ $menu->icon }}"></i>
+                                    @endif
+                                    {{ $menu->title }}
+                                </span>
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
 
                 <!-- Desktop Login SKM Button -->
                 @php

@@ -15,30 +15,40 @@
             </div>
         </div>
         <div class="card-body">
-            @if (session()->has('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-
             <form method="POST" action="/admin/slider/{{ $slider->id }}" enctype="multipart/form-data">
                 @method('put')
                 @csrf
 
                 <div class="mb-3">
-                    <img src="{{ asset('storage/' .$slider->img_slider) }}" class="img-preview img-fluid mb-3 mt-2" id="preview" style="border-radius: 5px; max-width: 100%; max-height: 400px;"><br>
-                    <label for="img_slider" class="form-label">Gambar Slider</label>
-                    <input class="form-control @error('img_slider') is-invalid @enderror" type="file" id="img_slider" name="img_slider" onchange="previewImage()">
-                    <small class="text-muted">Format: JPG, JPEG, PNG. Maksimal 2MB. Kosongkan jika tidak ingin mengubah gambar</small>
+                    <img src="{{ asset('storage/' .$slider->img_slider) }}" class="img-preview img-fluid mb-3 mt-2" id="preview" style="border-radius: 5px; width: 100%; overflow:hidden;"><br>
+                    <label for="img_slider" class="form-label">Gambar Slider <span style="color: red">*</span></label>
+                    <input class="form-control" type="file" id="img_slider" name="img_slider" onchange="previewImage()">
                     @error('img_slider')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                
-                <button type="submit" class="btn btn-primary m-1 float-end">
-                    <i class="ti ti-device-floppy"></i> Update
-                </button>
+                <div class="mb-3">
+                    <label for="judul" class="form-label">Judul <span style="color: red">*</span></label>
+                    <input type="text" class="form-control" name="judul" value="{{ old('judul', $slider->judul) }}">
+                    @error('judul')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="deskripsi" class="form-label">Deskripsi <span style="color: red">*</span></label>
+                    <textarea class="form-control" name="deskripsi" rows="3">{{ old('deskripsi', $slider->deskripsi) }}</textarea>
+                    @error('deskripsi')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="link_btn" class="form-label">Url Button <span style="color: red">*</span></label>
+                    <input type="text" class="form-control" name="link_btn" value="{{ old('link_btn', $slider->link_btn) }}">
+                    @error('link_btn')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary m-1 float-end">Update</button>
             </form>
         </div>
       </div>

@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Unirest\\' => array($vendorDir . '/mashape/unirest-php/src'),
-    'Barryvdh' => array($vendorDir . '/barryvdh/reflection-docblock/src'),
 );
