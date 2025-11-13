@@ -39,6 +39,14 @@
                         <span class="hide-menu">Slider</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/menu" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-menu-2"></i>
+                        </span>
+                        <span class="hide-menu">Menu Website</span>
+                    </a>
+                </li>
 
                 <!-- PROFIL PUSKESMAS -->
                 <li class="nav-small-cap">

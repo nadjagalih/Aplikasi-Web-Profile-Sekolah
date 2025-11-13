@@ -40,6 +40,9 @@ use App\Http\Controllers\AdminAgendaController;
 use App\Http\Controllers\AdminAlurPelayananController;
 use App\Http\Controllers\AdminBerkasController;
 use App\Http\Controllers\AdminSkmConfigController;
+use App\Http\Controllers\AdminMenuController;
+use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +107,22 @@ Route::delete('/admin/komentar/{id}', [AdminCommentController::class, 'destroy']
 Route::get('/admin/kategori/slug', [AdminKategoriController::class, 'slug']);
 route::resource('/admin/kategori', AdminKategoriController::class);
 
+// Menu Management Routes
+Route::get('/admin/menu/slug', [AdminMenuController::class, 'slug']);
+Route::post('/admin/menu/{menu}/toggle', [AdminMenuController::class, 'toggleStatus']);
+Route::post('/admin/menu/reorder', [AdminMenuController::class, 'reorder']);
+Route::resource('/admin/menu', AdminMenuController::class);
+
+// Page Management Routes
+Route::get('/admin/pages', [AdminPageController::class, 'index'])->name('pages.index');
+Route::get('/admin/pages/{id}/edit', [AdminPageController::class, 'edit'])->name('pages.edit');
+Route::put('/admin/pages/{id}', [AdminPageController::class, 'update'])->name('pages.update');
+Route::post('/admin/pages/{id}/toggle', [AdminPageController::class, 'toggleStatus'])->name('pages.toggle');
+Route::delete('/admin/pages/{id}', [AdminPageController::class, 'destroy'])->name('pages.destroy');
+Route::post('/admin/pages/create-from-menu', [AdminPageController::class, 'createFromMenu'])->name('pages.createFromMenu');
+Route::post('/admin/pages/upload-image', [AdminPageController::class, 'uploadImage'])->name('pages.uploadImage');
+Route::post('/admin/pages/{id}/delete-banner', [AdminPageController::class, 'deleteBanner'])->name('pages.deleteBanner');
+
 // Puskesmas Admin Routes
 Route::resource('admin/sambutan', AdminSambutanController::class);
 Route::resource('admin/agenda', AdminAgendaController::class);
@@ -141,3 +160,6 @@ Route::resource('/admin/berkas', AdminBerkasController::class);
 Route::get('/admin/berkas/{id}/preview', [AdminBerkasController::class, 'preview'])->name('berkas.preview');
 
 Route::get('/galeri/{id}', [GalleryController::class, 'show'])->name('galeri.show');
+
+// Dynamic Page Route (must be last to avoid conflicts with other routes)
+Route::get('/{slug}', [PageController::class, 'show'])->name('page.show');
