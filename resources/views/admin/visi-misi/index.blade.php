@@ -7,10 +7,7 @@
             <div class="card-header bg-primary">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <h5 class="card-title fw-semibold text-white">Visi & Misi Kecamatan</h5>
-                    </div>
-                    <div class="col-6 text-right">
-                        <a href="/visi-misi" type="button" class="btn btn-warning float-end" target="_blank">Live Preview</a>
+                        <h5 class="card-title fw-semibold text-white">Visi & Misi Puskesmas</h5>
                     </div>
                 </div>
             </div>

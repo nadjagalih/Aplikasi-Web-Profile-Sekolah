@@ -39,6 +39,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'username';
+    }
+
     protected function authenticated(Request $request, $user)
     {
         alert()->toast('Anda Login Sebagai ' .$user->name, 'success');

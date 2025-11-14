@@ -31,9 +31,9 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label fw-bold">Email</label>
-                        <input type="email" id="email" class="form-control" name="email" value="{{ old('email') }}"
-                            required autocomplete="email" autofocus>
+                        <label for="username" class="form-label fw-bold">Username</label>
+                        <input type="text" id="username" class="form-control" name="username" value="{{ old('username') }}"
+                            required autocomplete="username" autofocus>
                     </div>
 
                     <div class="mb-3">
@@ -46,7 +46,9 @@
                             <input class="form-check-input" type="checkbox" id="rememberMe">
                             <label class="form-check-label" for="rememberMe">Ingat perangkat ini</label>
                         </div>
-                        <a href="#" class="text-decoration-none text-primary fw-bold">Lupa Password?</a>
+                        <a href="{{ route('password.reset-username') }}" class="text-decoration-none text-primary fw-bold">
+                            Lupa Password?
+                        </a>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 py-2 fs-5 rounded">Login</button>

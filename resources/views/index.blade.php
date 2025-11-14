@@ -808,9 +808,9 @@
                data-persyaratan="{{ htmlspecialchars($layanan->persyaratan ?? '') }}"
                data-biaya="{{ htmlspecialchars($layanan->biaya ?? '') }}"
                data-status="{{ $layanan->status }}"
-               data-img="{{ $layanan->gambar && file_exists(public_path('storage/' . $layanan->gambar)) ? asset('storage/' . $layanan->gambar) : asset('assets/img/default-layanan.png') }}">
+               data-img="{{ $layanan->gambar && file_exists(storage_path('app/public/' . $layanan->gambar)) ? asset('storage/' . $layanan->gambar) : asset('assets/img/default-layanan.png') }}">
             <div class="fasilitas-icon">
-              @if($layanan->gambar && file_exists(public_path('storage/' . $layanan->gambar)))
+              @if($layanan->gambar && file_exists(storage_path('app/public/' . $layanan->gambar)))
                 <img src="{{ asset('storage/' . $layanan->gambar) }}" alt="{{ $layanan->nama_layanan }}">
               @else
                 <i class="bi bi-heart-pulse"></i>
@@ -827,7 +827,7 @@
         <div class="fasilitas-detail">
           <div class="fasilitas-detail-img">
             <img id="fasilitasImg" 
-                 src="{{ $layanans->first()->gambar && file_exists(public_path('storage/' . $layanans->first()->gambar)) ? asset('storage/' . $layanans->first()->gambar) : asset('assets/img/default-layanan.png') }}" 
+                 src="{{ $layanans->first()->gambar && file_exists(storage_path('app/public/' . $layanans->first()->gambar)) ? asset('storage/' . $layanans->first()->gambar) : asset('assets/img/default-layanan.png') }}" 
                  alt="Fasilitas">
           </div>
           <div class="fasilitas-detail-text">

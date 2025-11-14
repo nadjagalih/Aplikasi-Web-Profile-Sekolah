@@ -11,7 +11,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png?v=2">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png?v=2">
   <link rel="manifest" href="/assets/img/site.webmanifest?v=2">
-  <link rel="stylesheet" href="admin/assets/css/styles.min.css" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('admin/assets/css/styles.min.css') }}" />
 </head>
 
 <body>
@@ -29,8 +31,9 @@
     </div>
   </div>
   </div>
-  <script src="admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ asset('admin/assets/libs/jquery/dist/jquery.min.js') }}"></script>
 </body>
 
 </html>

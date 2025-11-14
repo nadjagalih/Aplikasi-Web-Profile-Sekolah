@@ -51,8 +51,8 @@ class AdminGalleryController extends Controller
             $extension  = $file->getClientOriginalExtension();
             $fileName   = uniqid() . '.' . $extension;
             
-            // Simpan langsung ke public/storage/img-gallery
-            $file->move(public_path('storage/img-gallery'), $fileName);
+            // Simpan ke storage/app/public/img-gallery
+            $file->move(storage_path('app/public/img-gallery'), $fileName);
             $gambar = 'img-gallery/' . $fileName;
         } else {
             $gambar     = null;
@@ -92,16 +92,16 @@ class AdminGalleryController extends Controller
 
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama
-            if ($gallery->gambar && file_exists(public_path('storage/' . $gallery->gambar))) {
-                unlink(public_path('storage/' . $gallery->gambar));
+            if ($gallery->gambar && file_exists(storage_path('app/public/' . $gallery->gambar))) {
+                unlink(storage_path('app/public/' . $gallery->gambar));
             }
             
             $file       = $request->file('gambar');
             $extension  = $file->getClientOriginalExtension();
             $fileName   = uniqid() . '.' . $extension;
             
-            // Simpan langsung ke public/storage/img-gallery
-            $file->move(public_path('storage/img-gallery'), $fileName);
+            // Simpan ke storage/app/public/img-gallery
+            $file->move(storage_path('app/public/img-gallery'), $fileName);
             $gambar = 'img-gallery/' . $fileName;
         } else {
             $validator = Validator::make($request->all(), [
@@ -134,8 +134,8 @@ class AdminGalleryController extends Controller
         $gallery = Gallery::find($id);
         
         // Hapus gambar dari storage
-        if ($gallery->gambar && file_exists(public_path('storage/' . $gallery->gambar))) {
-            unlink(public_path('storage/' . $gallery->gambar));
+        if ($gallery->gambar && file_exists(storage_path('app/public/' . $gallery->gambar))) {
+            unlink(storage_path('app/public/' . $gallery->gambar));
         }
         
         $gallery->delete();

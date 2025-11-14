@@ -12,13 +12,6 @@
 
                 <h4 class="text-center mb-4 fw-bold">Reset Password</h4>
 
-                @if (session('status'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('status') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <ul class="mb-0">
@@ -30,16 +23,14 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('password.update') }}">
+                <form method="POST" action="{{ route('password.reset-username.submit') }}">
                     @csrf
 
-                    <input type="hidden" name="token" value="{{ $token }}">
-
                     <div class="mb-3">
-                        <label for="email" class="form-label fw-bold">Email</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                               name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-                        @error('email')
+                        <label for="username" class="form-label fw-bold">Username</label>
+                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                               name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                        @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

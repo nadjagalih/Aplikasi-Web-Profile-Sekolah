@@ -355,8 +355,8 @@
             <div class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                 <div class="layanan-card-wrapper">
                     <!-- Image Section with Icon -->
-                    <div class="layanan-image-section {{ (!$layanan->gambar || !file_exists(public_path('storage/' . $layanan->gambar))) ? 'no-image' : '' }}" 
-                         @if($layanan->gambar && file_exists(public_path('storage/' . $layanan->gambar))) 
+                    <div class="layanan-image-section {{ (!$layanan->gambar || !file_exists(storage_path('app/public/' . $layanan->gambar))) ? 'no-image' : '' }}" 
+                         @if($layanan->gambar && file_exists(storage_path('app/public/' . $layanan->gambar))) 
                          style="background-image: url('{{ asset('storage/' . $layanan->gambar) }}'); background-size: cover; background-position: center;"
                          @endif>
                         <!-- Tidak ada overlay jika ada gambar, biarkan gambar terlihat penuh -->
@@ -365,7 +365,7 @@
                             Layanan {{ $loop->iteration }}
                         </div>
                         
-                        @if(!$layanan->gambar || !file_exists(public_path('storage/' . $layanan->gambar)))
+                        @if(!$layanan->gambar || !file_exists(storage_path('app/public/' . $layanan->gambar)))
                         <div class="layanan-icon-large">
                             <i class="bi bi-heart-pulse"></i>
                         </div>
@@ -413,7 +413,7 @@
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            @if($layanan->gambar && file_exists(public_path('storage/' . $layanan->gambar)))
+                            @if($layanan->gambar && file_exists(storage_path('app/public/' . $layanan->gambar)))
                             <div class="text-center mb-4">
                                 <img src="{{ asset('storage/' . $layanan->gambar) }}" 
                                      alt="{{ $layanan->nama_layanan }}" 

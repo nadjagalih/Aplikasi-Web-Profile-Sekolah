@@ -12,9 +12,6 @@
                         <div class="col-6">
                             <h5 class="card-title fw-semibold text-white mb-0">Manajemen Menu Website</h5>
                         </div>
-                        <div class="col-6 text-right">
-                            <a href="{{ url('/') }}" target="_blank" class="btn btn-warning float-end">Live Preview</a>
-                        </div>
                     </div>
                 </div>
                 <div class="card-body">

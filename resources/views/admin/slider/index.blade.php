@@ -29,7 +29,6 @@
                         <a href="/admin/slider/create" type="button" class="btn btn-success float-end me-2">
                             <i class="ti ti-plus"></i> Tambah Slider
                         </a>
-                        <a href="/" type="button" class="btn btn-warning float-end me-2" target="_blank">Live Preview</a>
                     </div>
                 </div>
             </div>

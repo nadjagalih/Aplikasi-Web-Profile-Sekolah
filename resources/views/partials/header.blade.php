@@ -445,6 +445,21 @@
                         $menuUrl = ltrim($menu->full_url, '/');
                         $isActive = ($currentPath === $menuUrl || Request::is($menuUrl)) ? 'active' : '';
                         $hasChildren = $menu->activeChildren->count() > 0;
+                        
+                        // Cek apakah ada child yang aktif
+                        $hasActiveChild = false;
+                        if($hasChildren) {
+                            foreach($menu->activeChildren as $child) {
+                                $childUrl = ltrim($child->full_url, '/');
+                                if($currentPath === $childUrl || Request::is($childUrl)) {
+                                    $hasActiveChild = true;
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // Parent dropdown aktif jika parent URL cocok ATAU ada child yang aktif
+                        $isActive = ($isActive === 'active' || $hasActiveChild) ? 'active' : '';
                     @endphp
                     
                     @if($hasChildren)

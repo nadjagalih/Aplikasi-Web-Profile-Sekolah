@@ -11,9 +11,6 @@
           <div class="col-6">
             <h5 class="card-title fw-semibold text-white">Struktur Organisasi</h5>
           </div>
-          <div class="col-6 text-right">
-            <a href="/struktur-organisasi" type="button" class="btn btn-warning float-end me-2" target="_blank">Live Preview</a>
-          </div>
         </div>
       </div>
 

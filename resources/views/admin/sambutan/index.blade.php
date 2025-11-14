@@ -1,93 +1,65 @@
-@extends('admin.layouts.app')
-
-@section('title', 'Kelola Sambutan Kepala Puskesmas')
+@extends('admin.layouts.main')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header bg-primary">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <h5 class="card-title fw-semibold text-white mb-0">Sambutan Kepala Puskesmas</h5>
+<div class="row">
+    <div class="col-lg-12 d-flex align-items-strech">
+        <div class="card w-100">
+            <div class="card-header bg-primary">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h5 class="card-title fw-semibold text-white">Sambutan Kepala Puskesmas</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if($sambutan)
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            @if($sambutan->foto && file_exists(storage_path('app/public/' . $sambutan->foto)))
+                                <img src="{{ asset('storage/' . $sambutan->foto) }}" alt="{{ $sambutan->nama }}" class="rounded img-preview py-3" id="preview">
+                            @else
+                                <div class="d-flex align-items-center justify-content-center" style="height: 300px; background-color: #f0f0f0;">
+                                    <span class="text-muted">Tidak ada foto</span>
+                                </div>
+                            @endif
                         </div>
-                        <div class="col-6 text-right">
-                            <a href="{{ url('/sambutan') }}" target="_blank" class="btn btn-warning float-end">Live Preview</a>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <h5><strong>{{ $sambutan->nama }}</strong></h5>
+                                    <p class="text-muted">{{ $sambutan->jabatan }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <h6><strong>Isi Sambutan:</strong></h6>
+                                    <p>{!! $sambutan->isi_sambutan !!}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    <div class="mb-3">
-                        <a href="{{ route('sambutan.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Tambah Sambutan
-                        </a>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th width="5%">No</th>
-                                    <th width="15%">Foto</th>
-                                    <th width="25%">Nama Kepala</th>
-                                    <th width="20%">Jabatan</th>
-                                    <th width="15%">Tanggal Dibuat</th>
-                                    <th width="20%">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($sambutan as $index => $item)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>
-                                            @if($item->foto)
-                                                <img src="{{ asset('storage/' . $item->foto) }}" 
-                                                     alt="{{ $item->nama }}" 
-                                                     class="img-thumbnail" 
-                                                     style="max-width: 100px;">
-                                            @else
-                                                <span class="badge badge-secondary">Tidak ada foto</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->jabatan }}</td>
-                                        <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>
-                                            <a href="{{ route('sambutan.edit', $item->id) }}" 
-                                               class="btn btn-warning mb-1">
-                                                <i class="ti ti-edit"></i>
-                                            </a>
-                                            <form action="{{ route('sambutan.destroy', $item->id) }}" 
-                                                  method="POST" 
-                                                  class="d-inline"
-                                                  onsubmit="return confirm('Yakin ingin menghapus sambutan ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger mb-1">
-                                                    <i class="ti ti-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">Belum ada data sambutan</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                @else
+                <div class="alert alert-info">
+                    Belum ada data sambutan
                 </div>
+                @endif
+            </div>
+            <div class="card-footer">
+                @if($sambutan)
+                    <a href="/admin/sambutan/{{ $sambutan->id }}/edit" type="button" class="btn btn-warning mb-1 float-end"><i class="ti ti-edit"></i> Edit Sambutan</a>
+                @endif
             </div>
         </div>
     </div>
 </div>
+
 @endsection

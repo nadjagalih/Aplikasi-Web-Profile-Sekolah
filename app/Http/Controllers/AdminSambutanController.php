@@ -16,65 +16,8 @@ class AdminSambutanController extends Controller
     public function index()
     {
         return view('admin.sambutan.index', [
-            'sambutan' => Sambutan::orderBy('id', 'DESC')->get()
+            'sambutan' => Sambutan::first()
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.sambutan.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'jabatan' => 'required',
-            'nama' => 'required',
-            'isi_sambutan' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-        ], [
-            'jabatan.required' => 'Wajib mengisi jabatan!',
-            'nama.required' => 'Wajib mengisi nama!',
-            'isi_sambutan.required' => 'Wajib mengisi isi sambutan!',
-            'foto.image' => 'File harus berupa gambar!',
-            'foto.mimes' => 'Format gambar yang diizinkan: Jpeg, Jpg, Png',
-            'foto.max' => 'Ukuran gambar maksimal 2MB!'
-        ]);
-
-        if($validator->fails()){
-            return redirect('/admin/sambutan/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $fotoPath = null;
-        if($request->hasFile('foto')){
-            $file = $request->file('foto');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            
-            // Simpan langsung ke public/storage/sambutan
-            $file->move(public_path('storage/sambutan'), $fileName);
-            $fotoPath = 'sambutan/' . $fileName;
-        }
-
-        Sambutan::create([
-            'jabatan' => $request->jabatan,
-            'nama' => $request->nama,
-            'isi_sambutan' => $request->isi_sambutan,
-            'foto' => $fotoPath,
-            'tempat' => $request->tempat,
-            'tanggal' => $request->tanggal,
-            'status' => $request->status ?? 'Aktif',
-            'user_id' => Auth::id()
-        ]);
-
-        return redirect('/admin/sambutan')->with('success', 'Berhasil menambahkan sambutan');
     }
 
     /**
@@ -118,15 +61,15 @@ class AdminSambutanController extends Controller
         $fotoPath = $sambutan->foto;
         if($request->hasFile('foto')){
             // Delete old foto if exists
-            if($sambutan->foto && file_exists(public_path('storage/' . $sambutan->foto))){
-                unlink(public_path('storage/' . $sambutan->foto));
+            if($sambutan->foto && file_exists(storage_path('app/public/' . $sambutan->foto))){
+                unlink(storage_path('app/public/' . $sambutan->foto));
             }
             
             $file = $request->file('foto');
             $fileName = time() . '_' . $file->getClientOriginalName();
             
-            // Simpan langsung ke public/storage/sambutan
-            $file->move(public_path('storage/sambutan'), $fileName);
+            // Simpan ke storage/app/public/sambutan
+            $file->move(storage_path('app/public/sambutan'), $fileName);
             $fotoPath = 'sambutan/' . $fileName;
         }
 
@@ -144,20 +87,4 @@ class AdminSambutanController extends Controller
         return redirect('/admin/sambutan')->with('success', 'Berhasil memperbarui sambutan');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $sambutan = Sambutan::findOrFail($id);
-        
-        // Delete foto if exists
-        if($sambutan->foto && file_exists(public_path('storage/' . $sambutan->foto))){
-            unlink(public_path('storage/' . $sambutan->foto));
-        }
-        
-        $sambutan->delete();
-
-        return redirect('/admin/sambutan')->with('success', 'Berhasil menghapus sambutan');
-    }
 }

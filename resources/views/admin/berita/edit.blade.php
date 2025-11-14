@@ -57,11 +57,11 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Gambar Slider <span style="color: red">*</span></label>
-                            @if($berita->gambar && file_exists(public_path('storage/' . $berita->gambar)))
+                            @if($berita->gambar && file_exists(storage_path('app/public/' . $berita->gambar)))
                                 <img src="{{ asset('storage/' . $berita->gambar) }}" class="img-preview img-fluid mb-3 d-block" id="preview" style="border-radius: 5px; max-height:300px; width: 100%; object-fit: cover;">
                             @else
                                 <img class="img-preview img-fluid mb-3 d-block" id="preview" style="border-radius: 5px; max-height:300px; width: 100%; object-fit: cover; display: none;">
-                                @if($berita->gambar && !file_exists(public_path('storage/' . $berita->gambar)))
+                                @if($berita->gambar && !file_exists(storage_path('app/public/' . $berita->gambar)))
                                     <div class="alert alert-warning mb-3">
                                         <small><i class="ti ti-alert-circle"></i> Gambar sebelumnya tidak ditemukan. Silakan upload gambar baru.</small>
                                     </div>

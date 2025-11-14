@@ -94,6 +94,10 @@ Route::get('/berita', [BeritaController::class, 'index']);
 //Admin Dashboard 
 Auth::routes();
 
+// Custom reset password dengan username
+Route::get('/password/reset-username', [\App\Http\Controllers\Auth\CustomResetPasswordController::class, 'showResetForm'])->name('password.reset-username');
+Route::post('/password/reset-username', [\App\Http\Controllers\Auth\CustomResetPasswordController::class, 'resetPassword'])->name('password.reset-username.submit');
+
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
 Route::resource('/admin/slider', AdminSliderController::class);

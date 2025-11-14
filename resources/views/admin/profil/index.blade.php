@@ -47,6 +47,13 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
+                                <label for="username" class="form-label">Username <span style="color: red">*</span></label>
+                                <input type="text" class="form-control" name="username" id="username" value="{{ old('username', $profil->username) }}">
+                                @error('username')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
                                 <label for="email" class="form-label">Email Admin <span style="color: red">*</span></label>
                                 <input type="text" class="form-control" name="email" id="email" value="{{ old('email', $profil->email) }}">
                                 @error('email')

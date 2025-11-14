@@ -43,8 +43,8 @@ class AdminBerkasController extends Controller
                 
                 $fileName = time() . '_' . preg_replace('/[^A-Za-z0-9_\-\.]/', '_', $file->getClientOriginalName());
                 
-                // Save to public/storage/berkas
-                $file->move(public_path('storage/berkas'), $fileName);
+                // Save to storage/app/public/berkas
+                $file->move(storage_path('app/public/berkas'), $fileName);
                 $filePath = 'berkas/' . $fileName;
 
                 Berkas::create([
@@ -91,7 +91,7 @@ class AdminBerkasController extends Controller
         try {
             if ($request->hasFile('file')) {
                 // Delete old file
-                $oldFilePath = public_path('storage/' . $berkas->file_path);
+                $oldFilePath = storage_path('app/public/' . $berkas->file_path);
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
@@ -103,8 +103,8 @@ class AdminBerkasController extends Controller
                 
                 $fileName = time() . '_' . preg_replace('/[^A-Za-z0-9_\-\.]/', '_', $file->getClientOriginalName());
                 
-                // Save to public/storage/berkas
-                $file->move(public_path('storage/berkas'), $fileName);
+                // Save to storage/app/public/berkas
+                $file->move(storage_path('app/public/berkas'), $fileName);
                 $filePath = 'berkas/' . $fileName;
 
                 $validated['file_path'] = $filePath;
@@ -126,7 +126,7 @@ class AdminBerkasController extends Controller
             $berkas = Berkas::findOrFail($id);
 
             // Delete file
-            $filePath = public_path('storage/' . $berkas->file_path);
+            $filePath = storage_path('app/public/' . $berkas->file_path);
             if (file_exists($filePath)) {
                 unlink($filePath);
             }
@@ -143,7 +143,7 @@ class AdminBerkasController extends Controller
     {
         $berkas = Berkas::findOrFail($id);
         
-        $filePath = public_path('storage/' . $berkas->file_path);
+        $filePath = storage_path('app/public/' . $berkas->file_path);
         
         if (file_exists($filePath)) {
             $ext = pathinfo($berkas->file_name, PATHINFO_EXTENSION);

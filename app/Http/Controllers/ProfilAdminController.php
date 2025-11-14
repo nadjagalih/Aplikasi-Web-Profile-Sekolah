@@ -24,11 +24,14 @@ class ProfilAdminController extends Controller
         $user = User::find($id);
         $validator = Validator::make($request->all(), [
             'name'       => 'required',
+            'username'   => 'required|unique:users,username,' . $id,
             'email'      => 'required|email:rfc,dns',
         ], [
-            'name.required'  => 'Wajib menambahkan nama anda !',
-            'email.required' => 'Wajib menambahkan email untu login !',
-            'email.email'    => 'Gunakan email yang sah !'
+            'name.required'      => 'Wajib menambahkan nama anda !',
+            'username.required'  => 'Wajib menambahkan username !',
+            'username.unique'    => 'Username sudah digunakan !',
+            'email.required'     => 'Wajib menambahkan email untu login !',
+            'email.email'        => 'Gunakan email yang sah !'
         ]);
 
         if($request->hasFile('foto')){
@@ -57,9 +60,10 @@ class ProfilAdminController extends Controller
         }
 
         $user->update([
-            'foto'    => $foto,
-            'name'    => $request->name,
-            'email'   => $request->email,
+            'foto'     => $foto,
+            'name'     => $request->name,
+            'username' => $request->username,
+            'email'    => $request->email,
         ]);
 
         return redirect('/admin/profil')->with('success', 'Berhasil memperbarui profil');
@@ -83,12 +87,14 @@ class ProfilAdminController extends Controller
                 ->withOnly(['passwordNew', 'confirmPassword']);
         }
 
-        if (!Hash::check($request->current_password, auth()->user()->password)) {
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
             return back()
                 ->withErrors(['current_password' => 'Password lama salah !'])
                 ->withOnly(['passwordNew', 'confirmPassword']);
         } else {
-            User::whereId(auth()->user()->id)->update([
+            User::whereId($user->id)->update([
                 'password' => Hash::make($request->passwordNew)
             ]);
             

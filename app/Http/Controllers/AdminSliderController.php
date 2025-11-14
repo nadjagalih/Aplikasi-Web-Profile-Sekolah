@@ -55,8 +55,8 @@ class AdminSliderController extends Controller
                 $extension  = $file->getClientOriginalExtension(); 
                 $fileName   = uniqid() . '.' . $extension;
                 
-                // Simpan langsung ke public/storage/img-slider
-                $destinationPath = public_path('storage/img-slider');
+                // Simpan ke storage/app/public/img-slider
+                $destinationPath = storage_path('app/public/img-slider');
                 $file->move($destinationPath, $fileName);
                 
                 $img_slider = 'img-slider/' . $fileName;
@@ -124,7 +124,7 @@ class AdminSliderController extends Controller
             try {
                 // Hapus gambar lama jika ada
                 if($slider->img_slider){
-                    $oldImagePath = public_path('storage/' . $slider->img_slider);
+                    $oldImagePath = storage_path('app/public/' . $slider->img_slider);
                     if(file_exists($oldImagePath)){
                         unlink($oldImagePath);
                     }
@@ -134,8 +134,8 @@ class AdminSliderController extends Controller
                 $extension  = $file->getClientOriginalExtension(); 
                 $fileName   = uniqid() . '.' . $extension;
                 
-                // Simpan langsung ke public/storage/img-slider
-                $destinationPath = public_path('storage/img-slider');
+                // Simpan ke storage/app/public/img-slider
+                $destinationPath = storage_path('app/public/img-slider');
                 $file->move($destinationPath, $fileName);
                 
                 $img_slider = 'img-slider/' . $fileName;
@@ -160,9 +160,9 @@ class AdminSliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        // Hapus gambar dari public/storage
+        // Hapus gambar dari storage/app/public
         if($slider->img_slider){
-            $imagePath = public_path('storage/' . $slider->img_slider);
+            $imagePath = storage_path('app/public/' . $slider->img_slider);
             if(file_exists($imagePath)){
                 unlink($imagePath);
             }

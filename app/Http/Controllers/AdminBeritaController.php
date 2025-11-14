@@ -73,8 +73,8 @@ class AdminBeritaController extends Controller
             $extension  = $file->getClientOriginalExtension(); 
             $fileName   = uniqid() . '.' . $extension;
             
-            // Simpan langsung ke public/storage/img-berita
-            $file->move(public_path('storage/img-berita'), $fileName);
+            // Simpan ke storage/app/public/img-berita
+            $file->move(storage_path('app/public/img-berita'), $fileName);
             $gambar = 'img-berita/' . $fileName;
         } else {
             $gambar     = null;
@@ -155,16 +155,16 @@ class AdminBeritaController extends Controller
         // Handle upload gambar baru
         if($request->hasFile('gambar')){
             // Hapus gambar lama jika ada
-            if($berita->gambar && file_exists(public_path('storage/' . $berita->gambar))){
-                unlink(public_path('storage/' . $berita->gambar));
+            if($berita->gambar && file_exists(storage_path('app/public/' . $berita->gambar))){
+                unlink(storage_path('app/public/' . $berita->gambar));
             }
             
             $file       = $request->file('gambar');
             $extension  = $file->getClientOriginalExtension(); 
             $fileName   = uniqid() . '.' . $extension;
             
-            // Simpan langsung ke public/storage/img-berita
-            $file->move(public_path('storage/img-berita'), $fileName);
+            // Simpan ke storage/app/public/img-berita
+            $file->move(storage_path('app/public/img-berita'), $fileName);
             $gambar = 'img-berita/' . $fileName;
         } else {
             // Gunakan gambar lama jika tidak ada upload baru
@@ -194,8 +194,8 @@ class AdminBeritaController extends Controller
         $berita = Berita::find($id);
         
         // Cek dan hapus gambar jika ada
-        if($berita->gambar && file_exists(public_path('storage/' . $berita->gambar))){
-            unlink(public_path('storage/' . $berita->gambar));
+        if($berita->gambar && file_exists(storage_path('app/public/' . $berita->gambar))){
+            unlink(storage_path('app/public/' . $berita->gambar));
         }
         
         $berita->delete();
