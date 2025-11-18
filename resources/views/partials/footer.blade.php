@@ -114,7 +114,6 @@
             <li><i class="bx bx-chevron-right"></i> <a href="/profil">Profil Puskesmas</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="/visi-misi">Visi & Misi</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="/struktur-organisasi">Struktur Organisasi</a></li>
-            <li><i class="bx bx-chevron-right"></i> <a href="/layanan">Jenis Layanan</a></li>
             <li><i class="bx bx-chevron-right"></i> <a href="/alur-pelayanan">Alur Pelayanan</a></li>
           </ul>
         </div>

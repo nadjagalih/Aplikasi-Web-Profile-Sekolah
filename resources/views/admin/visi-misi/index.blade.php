@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col p-5">
                         <div class="col p-5">
-                            <h5>Visi & Misi Kecamatan</h5>
+                            <h5>Visi & Misi Puskesmas</h5>
                             <div class="visi-misi">
                                 <div class="visi mb-3">
                                     <p class="fw-bolder">Visi</p>

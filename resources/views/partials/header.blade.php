@@ -500,21 +500,12 @@
                     </ul>
                 </li>
 
-                {{-- Menu Statis Layanan Kesehatan --}}
-                <li class="dropdown {{ Request::is('layanan*') || Request::is('alur-pelayanan') ? 'active' : '' }}">
-                    <a href="#"><span>Layanan Kesehatan</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li>
-                            <a href="/layanan" class="{{ Request::is('layanan') ? 'active' : '' }}">
-                                Layanan
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/alur-pelayanan" class="{{ Request::is('alur-pelayanan') ? 'active' : '' }}">
-                                Alur Pelayanan
-                            </a>
-                        </li>
-                    </ul>
+                {{-- Menu Statis Alur Pelayanan --}}
+                <li>
+                    <a class="nav-link scrollto {{ Request::is('alur-pelayanan') ? 'active' : '' }}" 
+                       href="/alur-pelayanan">
+                        <span>Alur Pelayanan</span>
+                    </a>
                 </li>
                 
                 {{-- Menu Dinamis dari Database --}}
