@@ -27,14 +27,14 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for="nama" class="form-label">nama <span style="color: red">*</span></label>
+                            <label for="nama" class="form-label">Nama <span style="color: red">*</span></label>
                             <input type="text" class="form-control" name="nama" id="nama" value="{{ old('nama', $strukturOrganisasi->nama) }}">
                             @error('nama')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="jabatan" class="form-label">jabatan <span style="color: red">*</span></label>
+                            <label for="jabatan" class="form-label">Jabatan <span style="color: red">*</span></label>
                             <input type="text" class="form-control" name="jabatan" id="jabatan" value="{{ old('jabatan', $strukturOrganisasi->jabatan) }}">
                             @error('jabatan')
                             <div class="text-danger">{{ $message }}</div>

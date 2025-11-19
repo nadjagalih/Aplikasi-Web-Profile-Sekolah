@@ -41,21 +41,21 @@ class SetSecurityHeaders
         // with proper CSRF protection and authentication already in place.
         $csp = implode('; ', [
             "default-src 'self'",
-            // Allow scripts from self and trusted CDNs (cross-domain allowed for CDN resources)
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:",
-            // Allow inline styles (required by Bootstrap & Laravel blade templates)
-            "style-src 'self' 'unsafe-inline' https:",
-            // Allow images from any HTTPS source (for user uploads, external images)
-            "img-src 'self' data: https: blob:",
-            // Allow fonts from any HTTPS source
-            "font-src 'self' data: https:",
-            // Allow AJAX/fetch requests (critical for CRUD operations)
+            // Allow scripts from self and specific trusted domains
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://fonts.googleapis.com https://www.google.com https://maps.google.com https://upload.wikimedia.org https://cdn.tailwindcss.com https://cdn.ckeditor.com",
+            // Allow styles from self and specific trusted domains
+            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com",
+            // Allow images from self, data, and specific HTTPS domains
+            "img-src 'self' data: https: blob: https://upload.wikimedia.org",
+            // Allow fonts from self, data, and specific domains
+            "font-src 'self' data: https://fonts.gstatic.com",
+            // Allow connect from self and HTTPS
             "connect-src 'self' https:",
             // Allow media from self and HTTPS
             "media-src 'self' https:",
             // Allow iframes from Google Maps
             "frame-src 'self' https://www.google.com https://maps.google.com",
-            // Upgrade insecure requests to HTTPS in production
+            // Upgrade insecure requests
             "upgrade-insecure-requests"
         ]);
         $response->headers->set('Content-Security-Policy', $csp);

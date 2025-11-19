@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="gambar" class="form-label">Gambar Layanan</label>
+                            <label for="gambar" class="form-label">Gambar Layanan <span style="color: red">*</span></label>
                             @if($layanan->gambar)
                                 <div class="mb-2">
                                     <img src="{{ asset('storage/' . $layanan->gambar) }}" alt="{{ $layanan->nama_layanan }}" 
@@ -65,7 +65,7 @@
                                 </div>
                             @endif
                             <input type="file" class="form-control @error('gambar') is-invalid @enderror" 
-                                name="gambar" id="gambar" accept="image/*">
+                                name="gambar" id="gambar" accept="image/*" required>
                             <small class="text-muted">Format: JPG, PNG, JPEG. Maksimal 2MB. Kosongkan jika tidak ingin mengubah gambar.</small>
                             @error('gambar')
                                 <div class="text-danger">{{ $message }}</div>

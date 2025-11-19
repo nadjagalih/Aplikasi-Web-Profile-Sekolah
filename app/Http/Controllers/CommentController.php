@@ -38,10 +38,14 @@ class CommentController extends Controller
             'replyNama'  => 'required',
             'replyEmail' => 'required|email',
             'replyBody'  => 'required',
+            'comment_id' => 'required|integer|exists:comments,id',
         ],[
             'replyNama.required'     => 'Ruas Nama Wajib Diisi !',
             'replyEmail.required'    => 'Ruas Email Wajib Diisi !',
             'replyBody.required'     => 'Ruas Body Wajib Diisi !',
+            'comment_id.required'    => 'Comment ID wajib diisi!',
+            'comment_id.integer'     => 'Comment ID harus berupa angka!',
+            'comment_id.exists'      => 'Comment tidak ditemukan!',
         ]);
 
         $berita = Berita::where('slug', $request->slug)->firstOrFail();

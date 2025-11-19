@@ -38,7 +38,7 @@ class AdminLayananController extends Controller
             'deskripsi'     => 'required',
             'persyaratan'   => 'nullable',
             'biaya'         => 'nullable|string|max:255',
-            'gambar'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'gambar'        => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'status'        => 'required|in:Tersedia,Tidak Tersedia'
         ], [
             'nama_layanan.required'  => 'Nama layanan wajib diisi!',

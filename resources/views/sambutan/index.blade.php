@@ -37,7 +37,7 @@
                   <i class="bi bi-chat-quote me-2"></i>Sambutan Kepala Puskesmas
                 </h3>
                 <div class="sambutan-text">
-                  {!! nl2br(e($sambutan->isi_sambutan)) !!}
+                  {!! $sambutan->isi_sambutan !!}
                 </div>
               </div>
             </div>

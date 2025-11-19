@@ -41,7 +41,7 @@
                                         @csrf
                                         
                                         <div class="form-group">
-                                            <label for="gambar">Pilih Gambar</label>
+                                            <label for="gambar">Pilih Gambar <span style="color: red">*</span></label>
                                             <div class="custom-file">
                                                 <input type="file" 
                                                        class="custom-file-input @error('gambar') is-invalid @enderror" 
